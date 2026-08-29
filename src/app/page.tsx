@@ -17,11 +17,20 @@ export const metadata: Metadata = {
     url: "https://generatefantasynames.com",
     siteName: "GenerateFantasyNames.com",
     type: "website",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 675,
+        alt: "Generate Fantasy Names",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: homepageConfig.title,
     description: homepageConfig.metaDescription,
+    images: ["/og-image.jpg"],
   },
 };
 

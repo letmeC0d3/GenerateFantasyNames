@@ -44,11 +44,20 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       url: canonicalUrl,
       siteName: "GenerateFantasyNames.com",
       type: "website",
+      images: [
+        {
+          url: "/og-image.jpg",
+          width: 1200,
+          height: 675,
+          alt: "Generate Fantasy Names",
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title: gen.title,
       description: gen.metaDescription,
+      images: ["/og-image.jpg"],
     },
   };
 }
