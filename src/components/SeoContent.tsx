@@ -16,11 +16,11 @@ export default function SeoContent({ slug }: SeoContentProps) {
     .filter((g): g is NonNullable<typeof g> => !!g);
 
   return (
-    <div className="w-full max-w-4xl mx-auto px-4 py-12 border-t border-card-border/30 mt-8 space-y-12 text-slate-300">
+    <div className="site-shell py-16 border-t border-white/10 mt-14 space-y-14 text-slate-300">
       {/* Editorial Content: Split Row */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-14">
         <article className="space-y-4">
-          <h2 className="text-xl font-bold text-white tracking-tight flex items-center gap-2 border-b border-card-border/30 pb-2">
+          <h2 className="text-xl font-bold text-white tracking-tight flex items-center gap-2 border-b border-white/10 pb-3">
             <span className="w-2 h-2 rounded-full bg-violet-500" />
             How the {gen.h1.replace(" Generator", "")} Works
           </h2>
@@ -30,7 +30,7 @@ export default function SeoContent({ slug }: SeoContentProps) {
         </article>
 
         <article className="space-y-4">
-          <h2 className="text-xl font-bold text-white tracking-tight flex items-center gap-2 border-b border-card-border/30 pb-2">
+          <h2 className="text-xl font-bold text-white tracking-tight flex items-center gap-2 border-b border-white/10 pb-3">
             <span className="w-2 h-2 rounded-full bg-fuchsia-500" />
             Naming Characteristics
           </h2>
@@ -47,7 +47,7 @@ export default function SeoContent({ slug }: SeoContentProps) {
             <span className="w-2 h-2 rounded-full bg-amber-500" />
             Frequently Asked Questions
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {gen.faqs.map((faq, idx) => (
               <div key={idx} className="glass-panel p-4 rounded-xl border border-card-border/20 bg-violet-950/5">
                 <h3 className="text-sm font-semibold text-white mb-2 flex gap-1">

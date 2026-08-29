@@ -110,7 +110,7 @@ export default function FavoritesClient() {
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
-      <main className="flex-grow max-w-5xl w-full mx-auto px-4 py-8 sm:py-12">
+      <main className="site-shell flex-grow py-12 sm:py-16">
         {/* Header Block */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-card-border/30 pb-6 mb-8">
           <div>
@@ -133,7 +133,7 @@ export default function FavoritesClient() {
 
         {/* Saved List Grid */}
         {favorites.length === 0 ? (
-          <div className="text-center py-16 glass-panel rounded-2xl border-dashed border-card-border/50 max-w-lg mx-auto p-8">
+          <div className="text-center py-16 surface-panel rounded-2xl border-dashed border-white/20 max-w-lg mx-auto p-8">
             <div className="w-16 h-16 mx-auto rounded-full bg-rose-950/20 flex items-center justify-center text-rose-500/60 mb-4 ring-4 ring-rose-950/5">
               <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
@@ -161,7 +161,7 @@ export default function FavoritesClient() {
             </div>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
             {favorites.map((nameObj, idx) => {
               const isCopied = copiedId === nameObj.id;
               const isRemixOpen = activeRemixId === nameObj.id;
@@ -169,10 +169,10 @@ export default function FavoritesClient() {
               return (
                 <div
                   key={nameObj.id}
-                  className="glass-panel glass-panel-hover rounded-xl p-4 flex flex-col justify-between gap-4 border border-card-border/40 relative overflow-hidden"
+                  className="name-card"
                 >
                   {/* Left accent color bar */}
-                  <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-gradient-to-b from-rose-500 to-violet-500" />
+                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-rose-400 to-violet-500" />
 
                   <div className="pl-2">
                     <div className="flex justify-between items-start">
@@ -214,8 +214,9 @@ export default function FavoritesClient() {
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
                           </svg>
                         ) : (
-                          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m-5 4h6m-6 4h6m-2 4h4" />
+                          <svg className="action-icon w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <rect x="9" y="9" width="11" height="11" rx="2" strokeWidth={2} />
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 9V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7a2 2 0 002 2h3" />
                           </svg>
                         )}
                       </button>
@@ -235,13 +236,13 @@ export default function FavoritesClient() {
                       <div className="relative">
                         <button
                           onClick={() => setActiveRemixId(isRemixOpen ? null : nameObj.id)}
-                          className={`p-2 rounded-lg text-slate-400 hover:text-white hover:bg-violet-950/40 transition-colors flex items-center gap-0.5 cursor-pointer ${
+                          className={`inline-flex items-center gap-1.5 p-2 rounded-lg text-slate-400 hover:text-white hover:bg-violet-950/40 transition-colors leading-none cursor-pointer ${
                             isRemixOpen ? "bg-violet-950/60 text-violet-300" : ""
                           }`}
                           title="Remix Name"
                         >
-                          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.21 8H18.2" />
+                          <svg className="action-icon refresh-icon w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 00-15.22-6.47L3 8m0-5v5h5M3 12a9 9 0 0015.22 6.47L21 16m0 5v-5h-5" />
                           </svg>
                           <span className="text-[10px] font-bold">Remix</span>
                         </button>

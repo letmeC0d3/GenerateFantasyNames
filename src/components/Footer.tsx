@@ -26,10 +26,10 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="relative mt-auto border-t border-card-border/60 bg-[#07050f] text-slate-400">
+    <footer className="relative mt-20 border-t border-white/10 bg-[#090a12] text-slate-400">
       {/* Dynamic Network Callout section to StylishFont.in */}
-      <div className="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8 border-b border-card-border/30">
-        <div className="glass-panel p-6 rounded-2xl border border-violet-500/20 bg-gradient-to-r from-violet-950/30 to-fuchsia-950/20 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div className="site-shell py-10 border-b border-white/10">
+        <div className="surface-panel p-6 sm:p-8 rounded-2xl bg-gradient-to-r from-violet-950/30 to-fuchsia-950/20 flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="text-center md:text-left">
             <h3 className="text-lg font-bold text-white tracking-tight flex items-center justify-center md:justify-start gap-2">
               <span>Got your perfect name?</span>
@@ -59,8 +59,8 @@ export default function Footer() {
       </div>
 
       {/* Directory Grid */}
-      <div className="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+      <div className="site-shell py-14">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-10">
           {/* Brand Column */}
           <div className="col-span-2 md:col-span-2 pr-4">
             <span className="text-lg font-bold text-white tracking-tight">

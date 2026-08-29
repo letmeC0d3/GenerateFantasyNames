@@ -85,7 +85,7 @@ export default function ResultsList({ names, onUpdateName }: ResultsListProps) {
   };
 
   return (
-    <div className="w-full space-y-4">
+    <div className="w-full space-y-5">
       {names.length === 0 ? (
         <div className="text-center py-12 glass-panel rounded-2xl border-dashed border-card-border/50 text-slate-400">
           <svg className="w-12 h-12 mx-auto text-violet-500/40 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -95,7 +95,7 @@ export default function ResultsList({ names, onUpdateName }: ResultsListProps) {
           <p className="text-xs text-slate-500 mt-1">Configure options above and click Generate.</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-5">
           {names.map((nameObj, idx) => {
             const isFav = isFavorited(nameObj.name);
             const isCopied = copiedId === nameObj.id;
@@ -104,30 +104,30 @@ export default function ResultsList({ names, onUpdateName }: ResultsListProps) {
             return (
               <div
                 key={nameObj.id}
-                className="glass-panel glass-panel-hover rounded-xl p-4 flex flex-col justify-between gap-4 border border-card-border/40 relative overflow-hidden"
+                className="name-card"
               >
                 {/* Accent glow line */}
-                <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-gradient-to-b from-violet-500 to-fuchsia-500" />
+                <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-violet-400 via-fuchsia-500 to-amber-300" />
 
                 <div className="pl-2">
-                  <div className="flex justify-between items-start">
-                    <span className="text-xl font-bold tracking-wide text-white select-all">
+                  <div className="flex justify-between items-start gap-3 pl-1">
+                    <span className="min-w-0 break-words text-xl font-bold tracking-tight text-white select-all">
                       {nameObj.name}
                     </span>
-                    <span className="text-[10px] uppercase font-bold px-2 py-0.5 rounded-full bg-violet-950/60 border border-violet-500/20 text-violet-300">
+                    <span className="shrink-0 text-[10px] uppercase font-bold px-2 py-1 rounded-full bg-violet-500/15 border border-violet-400/30 text-violet-200">
                       {nameObj.race !== "none" ? nameObj.race : nameObj.generatorType}
                     </span>
                   </div>
 
                   {/* Phonetics & Meaning */}
-                  <div className="mt-2 space-y-1">
+                  <div className="mt-3 space-y-1.5 pl-1">
                     {nameObj.pronunciation && (
-                      <p className="text-xs text-slate-400 italic">
+                      <p className="text-sm text-slate-400 italic leading-relaxed">
                         Pronounced: &ldquo;{nameObj.pronunciation}&rdquo;
                       </p>
                     )}
                     {nameObj.meaning && (
-                      <p className="text-xs text-amber-300/80 font-medium">
+                      <p className="text-sm text-amber-300/90 font-medium">
                         {nameObj.meaning}
                       </p>
                     )}
@@ -135,13 +135,13 @@ export default function ResultsList({ names, onUpdateName }: ResultsListProps) {
                 </div>
 
                 {/* Interactive Options Panels */}
-                <div className="flex items-center justify-between border-t border-card-border/30 pt-3 pl-2">
+                <div className="flex items-center justify-between border-t border-white/10 pt-3 pl-1">
                   <div className="flex items-center gap-1.5">
                     {/* Copy Button */}
                     <button
                       onClick={() => handleCopy(nameObj.name, nameObj.id, nameObj.race, nameObj.generatorType)}
                       className={`p-2 rounded-lg text-slate-400 hover:text-white transition-all cursor-pointer ${
-                        isCopied ? "bg-emerald-950/60 border border-emerald-500/40 text-emerald-400" : "hover:bg-violet-950/40"
+                        isCopied ? "bg-emerald-950/60 border border-emerald-500/40 text-emerald-400" : "hover:bg-white/10"
                       }`}
                       title="Copy to clipboard"
                     >
@@ -150,8 +150,9 @@ export default function ResultsList({ names, onUpdateName }: ResultsListProps) {
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
                         </svg>
                       ) : (
-                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m-5 4h6m-6 4h6m-2 4h4" />
+                        <svg className="action-icon w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                          <rect x="9" y="9" width="11" height="11" rx="2" strokeWidth={2} />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 9V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7a2 2 0 002 2h3" />
                         </svg>
                       )}
                     </button>
@@ -160,7 +161,7 @@ export default function ResultsList({ names, onUpdateName }: ResultsListProps) {
                     <button
                       onClick={() => toggleFavorite(nameObj)}
                       className={`p-2 rounded-lg transition-colors cursor-pointer ${
-                        isFav ? "text-rose-500 hover:text-rose-400 bg-rose-950/20" : "text-slate-400 hover:text-rose-500 hover:bg-rose-950/10"
+                        isFav ? "text-rose-400 hover:text-rose-300 bg-rose-950/20" : "text-slate-400 hover:text-rose-400 hover:bg-rose-950/20"
                       }`}
                       title={isFav ? "Remove from Saved" : "Save Name"}
                     >
@@ -173,13 +174,13 @@ export default function ResultsList({ names, onUpdateName }: ResultsListProps) {
                     <div className="relative">
                       <button
                         onClick={() => setActiveRemixId(isRemixOpen ? null : nameObj.id)}
-                        className={`p-2 rounded-lg text-slate-400 hover:text-white hover:bg-violet-950/40 transition-colors flex items-center gap-0.5 cursor-pointer ${
-                          isRemixOpen ? "bg-violet-950/60 text-violet-300" : ""
+                        className={`inline-flex items-center gap-1.5 p-2 rounded-lg text-slate-400 hover:text-white hover:bg-violet-950/40 transition-colors leading-none cursor-pointer ${
+                          isRemixOpen ? "bg-violet-500/20 text-violet-200" : ""
                         }`}
                         title="Remix Name"
                       >
-                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.21 8H18.2" />
+                        <svg className="action-icon refresh-icon w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 00-15.22-6.47L3 8m0-5v5h5M3 12a9 9 0 0015.22 6.47L21 16m0 5v-5h-5" />
                         </svg>
                         <span className="text-[10px] font-bold">Remix</span>
                       </button>
@@ -210,7 +211,7 @@ export default function ResultsList({ names, onUpdateName }: ResultsListProps) {
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => handleStylizeClick(nameObj.name, nameObj.race, nameObj.generatorType)}
-                    className="flex items-center gap-1 text-xs font-semibold text-violet-400 hover:text-violet-300 hover:underline transition-colors px-2 py-1 rounded-md hover:bg-violet-950/20 cursor-pointer"
+                    className="flex items-center gap-1 text-xs font-semibold text-violet-300 hover:text-white transition-colors px-2 py-1.5 rounded-md hover:bg-white/10 cursor-pointer"
                   >
                     <span>Stylize</span>
                     <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">

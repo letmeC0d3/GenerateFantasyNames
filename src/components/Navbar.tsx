@@ -73,17 +73,14 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="sticky top-0 z-50 glass-panel border-b border-card-border/50 bg-[#0b0914]/80 backdrop-blur-md">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+    <nav id="top" className="site-nav">
+      <div className="site-shell">
+        <div className="flex items-center justify-between h-[72px]">
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
             <Link href="/" className="flex items-center gap-2 group">
-              <span className="text-xl font-bold tracking-tight bg-gradient-to-r from-violet-400 via-fuchsia-400 to-amber-300 bg-clip-text text-transparent group-hover:opacity-90 transition-opacity">
-                GenerateFantasyNames
-                <span className="text-xs font-semibold px-1.5 py-0.5 ml-1 rounded-sm bg-violet-950/80 border border-violet-500/30 text-violet-300">
-                  .com
-                </span>
+              <span className="text-base sm:text-lg font-black tracking-[-0.04em] text-white group-hover:text-violet-200 transition-colors whitespace-nowrap">
+                GenerateFantasy<span className="text-violet-300">Names</span><span className="ml-1.5 text-[10px] font-bold tracking-normal text-slate-400">.com</span>
               </span>
             </Link>
           </div>
@@ -92,14 +89,15 @@ export default function Navbar() {
           <div className="hidden lg:flex items-center space-x-1">
             {categories.map((cat, idx) => (
               <div key={idx} className="relative group px-3 py-2">
-                <button className="text-sm font-medium text-slate-300 hover:text-white transition-colors cursor-pointer flex items-center gap-1">
+                <button className="text-sm font-medium text-slate-400 hover:text-white transition-colors cursor-pointer flex items-center gap-1">
                   {cat.name}
                   <svg className="w-4 h-4 text-slate-400 group-hover:rotate-180 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
                 </button>
                 {/* Dropdown panel */}
-                <div className="absolute top-full left-1/2 -translate-x-1/2 w-56 mt-1 hidden group-hover:block glass-panel bg-[#0f0c1e] rounded-lg border border-card-border/60 p-2 shadow-2xl">
+                <div className="absolute top-full left-1/2 -translate-x-1/2 w-56 pt-2 hidden group-hover:block">
+                  <div className="surface-panel rounded-xl p-2 shadow-2xl">
                   {cat.links.map((link, lIdx) => (
                     <Link
                       key={lIdx}
@@ -113,6 +111,7 @@ export default function Navbar() {
                       {link.label}
                     </Link>
                   ))}
+                  </div>
                 </div>
               </div>
             ))}
@@ -121,8 +120,8 @@ export default function Navbar() {
               href="/favorites"
               className={`flex items-center gap-2 px-4 py-2 ml-4 text-sm font-medium rounded-full transition-all border ${
                 pathname === "/favorites"
-                  ? "bg-violet-900/40 text-violet-200 border-violet-500/60"
-                  : "bg-violet-950/20 text-slate-300 border-violet-900/30 hover:border-violet-500/30 hover:text-white"
+                  ? "bg-violet-500/20 text-violet-100 border-violet-400/50"
+                  : "bg-white/5 text-slate-300 border-white/10 hover:border-violet-400/40 hover:text-white"
               }`}
             >
               <svg className="w-4 h-4 text-rose-500" fill="currentColor" viewBox="0 0 24 24">
@@ -155,8 +154,10 @@ export default function Navbar() {
               onClick={() => setIsOpen(!isOpen)}
               className="text-slate-400 hover:text-white focus:outline-none focus:text-white cursor-pointer"
               aria-label="Toggle menu"
+              aria-expanded={isOpen}
+              aria-controls="mobile-navigation"
             >
-              <svg className="h-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 {isOpen ? (
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 ) : (
@@ -170,7 +171,7 @@ export default function Navbar() {
 
       {/* Mobile Menu Panel */}
       {isOpen && (
-        <div className="lg:hidden glass-panel bg-[#0f0c1e] border-t border-card-border p-4 max-h-[85vh] overflow-y-auto">
+        <div id="mobile-navigation" className="lg:hidden glass-panel bg-[#0f0c1e] border-t border-card-border p-4 max-h-[85vh] overflow-y-auto">
           {categories.map((cat, idx) => (
             <div key={idx} className="mb-4">
               <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">

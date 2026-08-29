@@ -146,108 +146,128 @@ export default function GeneratorInterface({
 
 
   return (
-    <section className="w-full max-w-4xl mx-auto px-4 py-8 sm:py-12">
+    <section className="site-shell py-12 sm:py-16">
       {/* Title Header */}
-      <div className="text-center mb-8">
-        <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white glow-text-primary">
+      <div className="hero-copy text-center mb-12">
+        <p className="text-violet-300 text-xs font-bold uppercase tracking-[0.18em] mb-4">A tool for writers, players & world-builders</p>
+        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-[-0.04em] text-white">
           {titleText}
         </h1>
-        <p className="text-slate-400 mt-2 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
+        <p className="text-slate-400 mt-4 text-base sm:text-lg leading-relaxed">
           {descriptionText}
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 xl:gap-8 items-start">
         {/* Controls Column */}
-        <div className="lg:col-span-1 glass-panel rounded-2xl p-5 border border-card-border/50 bg-[#0f0c1e]/90 space-y-5">
-          <h2 className="text-sm font-semibold text-violet-300 uppercase tracking-wider border-b border-card-border/30 pb-2">
-            Generator Controls
-          </h2>
+        <aside className="lg:col-span-3 lg:sticky lg:top-24 control-panel space-y-5">
+          <div className="flex items-center justify-between border-b border-white/10 pb-4"><h2 className="text-base font-bold text-white">Create a name</h2><span className="text-[10px] font-bold tracking-widest text-violet-300 uppercase">Step 1</span></div>
 
           {/* Target Entity Selector */}
           <div>
-            <label htmlFor="gen-type" className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
+            <label htmlFor="gen-type" className="control-label block mb-2">
               What are you naming?
             </label>
-            <select
-              id="gen-type"
-              value={generatorType}
-              onChange={(e) => {
-                setGeneratorType(e.target.value);
-                // Reset race defaults for entities
-                if (e.target.value !== "character" && e.target.value !== "dnd") {
-                  setRace("none");
-                } else if (e.target.value === "character" && race === "none") {
-                  setRace("elf");
-                }
-              }}
-              className="w-full bg-[#07050f]/80 border border-card-border/40 rounded-lg px-3 py-2 text-sm text-slate-200 cursor-pointer"
-            >
-              <option value="character">Character</option>
-              <option value="dnd">D&D Race</option>
-              <option value="kingdom">Kingdom</option>
-              <option value="city">City</option>
-              <option value="guild">Guild</option>
-              <option value="clan">Clan</option>
-              <option value="tavern">Tavern</option>
-              <option value="ship">Ship</option>
-              <option value="weapon">Weapon</option>
-              <option value="creature">Creature</option>
-              <option value="username">Username</option>
-            </select>
+            <div className="relative">
+              <select
+                id="gen-type"
+                value={generatorType}
+                onChange={(e) => {
+                  setGeneratorType(e.target.value);
+                  // Reset race defaults for entities
+                  if (e.target.value !== "character" && e.target.value !== "dnd") {
+                    setRace("none");
+                  } else if (e.target.value === "character" && race === "none") {
+                    setRace("elf");
+                  }
+                }}
+                className="control-field px-3 pr-10 text-sm cursor-pointer appearance-none"
+              >
+                <option value="character">Character</option>
+                <option value="dnd">D&D Race</option>
+                <option value="kingdom">Kingdom</option>
+                <option value="city">City</option>
+                <option value="guild">Guild</option>
+                <option value="clan">Clan</option>
+                <option value="tavern">Tavern</option>
+                <option value="ship">Ship</option>
+                <option value="weapon">Weapon</option>
+                <option value="creature">Creature</option>
+                <option value="username">Username</option>
+              </select>
+              <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-slate-400">
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </div>
+            </div>
           </div>
 
           {/* Race Select (Only characters) */}
           {showRaceSelect && (
             <div>
-              <label htmlFor="gen-race" className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
+              <label htmlFor="gen-race" className="control-label block mb-2">
                 Race / Species
               </label>
-              <select
-                id="gen-race"
-                value={race}
-                onChange={(e) => setRace(e.target.value)}
-                className="w-full bg-[#07050f]/80 border border-card-border/40 rounded-lg px-3 py-2 text-sm text-slate-200 cursor-pointer"
-              >
-                <option value="any">Any Race (Random)</option>
-                <option value="elf">Elf</option>
-                <option value="dark-elf">Dark Elf (Drow)</option>
-                <option value="dwarf">Dwarf</option>
-                <option value="orc">Orc</option>
-                <option value="dragon">Dragon</option>
-                <option value="human">Human</option>
-                <option value="wizard">Wizard</option>
-                <option value="vampire">Vampire</option>
-                <option value="angel">Angel</option>
-                <option value="demon">Demon</option>
-                <option value="fairy">Fairy</option>
-              </select>
+              <div className="relative">
+                <select
+                  id="gen-race"
+                  value={race}
+                  onChange={(e) => setRace(e.target.value)}
+                  className="control-field px-3 pr-10 text-sm cursor-pointer appearance-none"
+                >
+                  <option value="any">Any Race (Random)</option>
+                  <option value="elf">Elf</option>
+                  <option value="dark-elf">Dark Elf (Drow)</option>
+                  <option value="dwarf">Dwarf</option>
+                  <option value="orc">Orc</option>
+                  <option value="dragon">Dragon</option>
+                  <option value="human">Human</option>
+                  <option value="wizard">Wizard</option>
+                  <option value="vampire">Vampire</option>
+                  <option value="angel">Angel</option>
+                  <option value="demon">Demon</option>
+                  <option value="fairy">Fairy</option>
+                </select>
+                <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-slate-400">
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </div>
+              </div>
             </div>
           )}
 
           {/* Style Select */}
           <div>
-            <label htmlFor="gen-style" className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
+            <label htmlFor="gen-style" className="control-label block mb-2">
               Style / Modifier
             </label>
-            <select
-              id="gen-style"
-              value={style}
-              onChange={(e) => setStyle(e.target.value)}
-              className="w-full bg-[#07050f]/80 border border-card-border/40 rounded-lg px-3 py-2 text-sm text-slate-200 cursor-pointer"
-            >
-              <option value="none">Standard / Genre Classic</option>
-              <option value="high-fantasy">High Fantasy</option>
-              <option value="dark-fantasy">Dark Fantasy</option>
-              <option value="ancient">Ancient</option>
-              <option value="royal">Royal</option>
-            </select>
+            <div className="relative">
+              <select
+                id="gen-style"
+                value={style}
+                onChange={(e) => setStyle(e.target.value)}
+                className="control-field px-3 pr-10 text-sm cursor-pointer appearance-none"
+              >
+                <option value="none">Standard / Genre Classic</option>
+                <option value="high-fantasy">High Fantasy</option>
+                <option value="dark-fantasy">Dark Fantasy</option>
+                <option value="ancient">Ancient</option>
+                <option value="royal">Royal</option>
+              </select>
+              <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-slate-400">
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </div>
+            </div>
           </div>
 
           {/* Gender Select (Only characters) */}
           {showGenderSelect && (
             <div>
-              <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
+              <label className="control-label block mb-2">
                 Gender
               </label>
               <div className="flex gap-2">
@@ -258,8 +278,8 @@ export default function GeneratorInterface({
                     onClick={() => setGender(g)}
                     className={`flex-1 py-1.5 rounded-lg border text-xs font-bold uppercase transition-all cursor-pointer ${
                       gender === g
-                        ? "bg-violet-900/50 border-violet-500 text-violet-200 shadow"
-                        : "bg-[#07050f]/40 border-card-border/30 text-slate-400 hover:text-white"
+                        ? "bg-violet-500/20 border-violet-400 text-white shadow"
+                        : "bg-black/20 border-white/10 text-slate-400 hover:border-violet-400/50 hover:text-white"
                     }`}
                   >
                     {g}
@@ -271,16 +291,16 @@ export default function GeneratorInterface({
 
           {/* Seed Input */}
           <div>
-            <label htmlFor="gen-seed" className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2 flex justify-between items-center">
+            <label htmlFor="gen-seed" className="control-label flex justify-between items-center mb-2">
               <span>Seed Configuration</span>
               <button
                 type="button"
                 onClick={handleShuffleSeed}
-                className="text-[10px] text-violet-400 hover:text-violet-300 flex items-center gap-0.5 cursor-pointer uppercase font-bold"
+                className="inline-flex items-center gap-1 text-[10px] leading-none text-violet-400 hover:text-violet-300 cursor-pointer uppercase font-bold"
                 title="Shuffle Seed"
               >
-                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.21 8H18.2" />
+                <svg className="action-icon refresh-icon w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 00-15.22-6.47L3 8m0-5v5h5M3 12a9 9 0 0015.22 6.47L21 16m0 5v-5h-5" />
                 </svg>
                 Shuffle
               </button>
@@ -290,14 +310,14 @@ export default function GeneratorInterface({
               type="text"
               value={seed}
               onChange={(e) => setSeed(e.target.value.toUpperCase().slice(0, 16))}
-              className="w-full bg-[#07050f]/80 border border-card-border/40 rounded-lg px-3 py-2 text-sm text-slate-200 tracking-wider font-mono"
+              className="control-field px-3 text-sm tracking-wider font-mono"
               placeholder="E.g. AELTHA"
             />
           </div>
 
           {/* Quantity Controls */}
           <div>
-            <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
+            <label className="control-label block mb-2">
               Quantity ({quantity})
             </label>
             <div className="flex gap-2">
@@ -308,8 +328,8 @@ export default function GeneratorInterface({
                   onClick={() => setQuantity(qty)}
                   className={`flex-1 py-1.5 rounded-lg border text-xs font-bold transition-all cursor-pointer ${
                     quantity === qty
-                      ? "bg-violet-900/50 border-violet-500 text-violet-200 shadow"
-                      : "bg-[#07050f]/40 border-card-border/30 text-slate-400 hover:text-white"
+                        ? "bg-violet-500/20 border-violet-400 text-white shadow"
+                        : "bg-black/20 border-white/10 text-slate-400 hover:border-violet-400/50 hover:text-white"
                   }`}
                 >
                   {qty}
@@ -322,7 +342,7 @@ export default function GeneratorInterface({
           <div className="pt-2 space-y-2">
             <button
               onClick={() => handleGenerate()}
-              className="w-full py-3 rounded-xl bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 text-white font-bold text-sm tracking-wider uppercase shadow-lg shadow-violet-950/40 glow-button transition-all cursor-pointer border border-violet-400/20"
+              className="primary-button w-full py-3.5 rounded-xl font-bold text-sm tracking-wide cursor-pointer"
             >
               Generate Names
             </button>
@@ -331,7 +351,7 @@ export default function GeneratorInterface({
               className={`w-full py-2.5 rounded-xl border text-xs font-semibold transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
                 shareFeedback
                   ? "bg-emerald-950/50 border-emerald-500 text-emerald-400"
-                  : "bg-transparent border-card-border/50 text-slate-300 hover:border-violet-500/40 hover:text-white"
+                  : "bg-transparent border-white/10 text-slate-300 hover:border-violet-400/50 hover:text-white"
               }`}
             >
               {shareFeedback ? (
@@ -351,16 +371,14 @@ export default function GeneratorInterface({
               )}
             </button>
           </div>
-        </div>
+        </aside>
 
         {/* Results Column */}
-        <div className="lg:col-span-2 space-y-4">
-          <div className="flex items-center justify-between border-b border-card-border/30 pb-2">
-            <h2 className="text-sm font-semibold text-violet-300 uppercase tracking-wider">
-              Generated Outputs
-            </h2>
-            <span className="text-xs text-slate-500 font-mono">
-              Seed: {mounted ? seed : (initialPreset.seed || "...")}
+        <div className="lg:col-span-9 min-w-0 space-y-5">
+          <div className="flex items-center justify-between gap-4 border-b border-white/10 pb-4">
+            <div><p className="text-xs font-bold text-violet-300 uppercase tracking-[0.16em]">Your results</p><h2 className="mt-1 text-2xl font-bold text-white">Names worth keeping</h2></div>
+            <span className="hidden sm:block text-xs text-slate-400 font-mono rounded-full border border-white/10 bg-white/5 px-3 py-2">
+              Seed {mounted ? seed : (initialPreset.seed || "...")}
             </span>
           </div>
 
