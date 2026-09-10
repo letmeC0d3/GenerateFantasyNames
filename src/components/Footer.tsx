@@ -7,6 +7,11 @@ export default function Footer() {
     { name: "Dwarf Name Generator", href: "/dwarf-name-generator" },
     { name: "Orc Name Generator", href: "/orc-name-generator" },
     { name: "Tiefling Name Generator", href: "/tiefling-name-generator" },
+    { name: "Dragonborn Name Generator", href: "/dragonborn-name-generator" },
+    { name: "Half-Orc Name Generator", href: "/half-orc-name-generator" },
+    { name: "Pirate Name Generator", href: "/pirate-name-generator" },
+    { name: "Witch Name Generator", href: "/witch-name-generator" },
+    { name: "Goblin Name Generator", href: "/goblin-name-generator" },
     { name: "Dragon Name Generator", href: "/dragon-name-generator" },
     { name: "Wizard Name Generator", href: "/wizard-name-generator" },
     { name: "Vampire Name Generator", href: "/vampire-name-generator" },
@@ -16,15 +21,15 @@ export default function Footer() {
   ];
 
   const details = [
-    { name: "Kingdom Names", href: "/fantasy-kingdom-name-generator" },
-    { name: "City Names", href: "/fantasy-city-name-generator" },
-    { name: "Guild Names", href: "/fantasy-guild-name-generator" },
+    { name: "Kingdom Names", href: "/kingdom-name-generator" },
+    { name: "City Names", href: "/city-name-generator" },
+    { name: "Tavern Names", href: "/tavern-name-generator" },
+    { name: "Guild Names", href: "/guild-name-generator" },
     { name: "Clan Names", href: "/fantasy-clan-name-generator" },
+    { name: "Ship Names", href: "/ship-name-generator" },
     { name: "Cyberpunk Names", href: "/cyberpunk-name-generator" },
     { name: "Warhammer Names", href: "/warhammer-name-generator" },
     { name: "Weapon Names", href: "/weapon-name-generator" },
-    { name: "Ship Names", href: "/fantasy-ship-name-generator" },
-    { name: "Tavern Names", href: "/fantasy-tavern-name-generator" },
     { name: "Fantasy Usernames", href: "/fantasy-username-generator" },
   ];
 

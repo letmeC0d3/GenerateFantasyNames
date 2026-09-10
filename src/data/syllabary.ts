@@ -438,3 +438,106 @@ export const warhammerVocabulary = {
   ]
 };
 
+export const pirateVocabulary = {
+  male: [
+    "Jack", "Edward", "Bartholomew", "William", "Calico", "Charles", "Henry", "Samuel",
+    "Francis", "Morgan", "Barnaby", "Gideon", "Silas", "Caleb", "Jasper", "Roger",
+    "Flint", "Tobias", "Hector", "Jonas", "Stede"
+  ],
+  female: [
+    "Anne", "Mary", "Grace", "Sayyida", "Ching", "Sadie", "Jacquotte", "Rachel",
+    "Bess", "Charlotte", "Eliza", "Maeve", "Coralia", "Flora", "Bonnie", "Morgana"
+  ],
+  epithets: [
+    "Cutlass", "Ironhook", "Sea Wolf", "Black Dog", "Barnacle", "Salt-Breeze", "Scurvy",
+    "Kraken", "Blood-Tide", "Plank-Walker", "Gold-Tooth", "Crossbones", "Storm-Chaser",
+    "Davy's Hand", "Driftwood", "One-Eyed", "Red-Handed", "Crow-Nest", "Rum-Soaked"
+  ],
+  titles: [
+    "Captain", "Quartermaster", "Boatswain", "First Mate", "Gunner", "Corsair", "Buccaneer", "Commodore"
+  ],
+  origins: [
+    "of Tortuga", "of Port Royal", "of Dead Man's Cove", "of Kraken Reach", "of Shipwreck Shoals",
+    "of the Crimson Tide", "of the Roaring Sea", "of Nassau"
+  ]
+};
+
+export const witchVocabulary = {
+  female: [
+    "Morrigan", "Hecate", "Griselda", "Rowena", "Sybil", "Agatha", "Cordelia", "Hazel",
+    "Isolde", "Tabitha", "Belladonna", "Nimue", "Morgana", "Prudence", "Ursula", "Willow",
+    "Circe", "Maeve", "Selene", "Astrid", "Bathsheba", "Endora", "Kaelen", "Morwen"
+  ],
+  male: [
+    "Alastair", "Cyprian", "Gideon", "Malo", "Corvus", "Thaddeus", "Balthazar", "Lucan",
+    "Vane", "Silas", "Enoch", "Osiris", "Ambrose", "Kester", "Damian", "Jareth"
+  ],
+  surnames: [
+    "Nightshade", "Blackwood", "Holloway", "Wormwood", "Bramblethorn", "Crowley", "Grimoire",
+    "Cauldron-Keeper", "Baneberry", "Hellebore", "Duskfall", "Gravebloom", "Shadowmire",
+    "Ravenclaw", "Moonwhisper", "Hexwood", "Bloodroot", "Ashgrove"
+  ],
+  titles: [
+    "the Coven Mother", "of the Whispering Bog", "the Swamp Crone", "the Hexweaver",
+    "the Herbalist", "the Fate-Spinner", "of the Bleeding Grove", "the Bone-Reader",
+    "the Shadow-Weaver", "of the Black Cauldron"
+  ]
+};
+
+export const dragonbornVocabulary = {
+  male: [
+    "Arjhan", "Balasar", "Bharash", "Donaar", "Ghesh", "Heskan", "Kriv", "Medrash",
+    "Mehen", "Nadarr", "Pandjed", "Patrin", "Rhogar", "Shamash", "Shedinn", "Tarhun",
+    "Torinn", "Andras", "Balthor", "Drakon", "Rathakor", "Zorvath", "Vrak"
+  ],
+  female: [
+    "Akra", "Biri", "Daar", "Farideh", "Harann", "Havilar", "Jheri", "Kava",
+    "Korinn", "Mishann", "Nala", "Perra", "Raiann", "Sora", "Surina", "Thava",
+    "Uadjit", "Zofia", "Valindra", "Zenobia", "Myastan"
+  ],
+  clans: [
+    "Clethtinthiallor", "Daardendrian", "Delmirev", "Drachedandion", "Fenkenkabradon",
+    "Kepeshkmolik", "Kerrhylon", "Kimbatuul", "Linxakasendalor", "Myastan", "Nemmonis",
+    "Norixius", "Ophinshtalajiir", "Prexijandilin", "Ravoturn", "Shestendeliath",
+    "Turnuroth", "Verthisathurgiesh", "Yarjerit"
+  ],
+  virtues: [
+    "the Dauntless", "Flame-Bearer", "Shield-Biter", "Scaleward", "Gold-Gilded",
+    "Iron-Scales", "Ember-Heart", "Dragon-Grip", "Wyrm-Speaker"
+  ]
+};
+
+export const halfOrcVocabulary = {
+  male: [
+    "Dench", "Feng", "Gell", "Henk", "Holg", "Imsh", "Keth", "Krusk", "Mhurren",
+    "Ront", "Shump", "Thokk", "Brak", "Gorg", "Zark", "Morg", "Kragor", "Vorg"
+  ],
+  female: [
+    "Baggi", "Emen", "Engong", "Kansif", "Myev", "Neega", "Ovak", "Ownka", "Shautha",
+    "Sutha", "Vola", "Volen", "Yevelda", "Morga", "Ugra", "Brena", "Karn"
+  ],
+  epithets: [
+    "Iron-Jaw", "Skull-Cleaver", "Blight-Walker", "Blood-Fist", "the Exiled", "Stoneshield",
+    "Tusk-Breaker", "Grave-Breaker", "the Savage", "the Unbroken", "Wolf-Heart", "Dusk-Strider",
+    "the Scarred", "Bone-Crusher", "Shield-Smasher"
+  ],
+  humanSurnames: [
+    "Miller", "Ward", "Black", "Stone", "Rivers", "Tanner", "Smith", "Fletcher",
+    "Thorne", "Greystone", "Wood", "Hill", "Finch", "Vance"
+  ]
+};
+
+export const goblinVocabulary = {
+  firstNames: [
+    "Grik", "Snik", "Zik", "Krag", "Nox", "Skab", "Grot", "Fiz", "Riz", "Brak",
+    "Tink", "Poz", "Gnash", "Kraggle", "Boggle", "Spit", "Jinx", "Grub", "Scrap", "Fester",
+    "Nib", "Plink", "Sprocket", "Drib", "Gleek"
+  ],
+  epithets: [
+    "Snot-Eater", "Gold-Snatcher", "Ratskull", "Back-Stabber", "Greasetooth", "Penny-Pincher",
+    "Mudfoot", "Ear-Cutter", "Shin-Kicker", "Trap-Maker", "Bomb-Tosser", "the Skulker",
+    "Coin-Biter", "Lock-Picker", "Rusty-Dagger"
+  ]
+};
+
+

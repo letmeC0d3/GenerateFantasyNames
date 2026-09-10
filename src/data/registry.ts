@@ -34,10 +34,15 @@ export const raceOptions: SelectOption[] = [
   { value: "dwarf", label: "Dwarf" },
   { value: "orc", label: "Orc" },
   { value: "tiefling", label: "Tiefling (D&D 5e)" },
+  { value: "dragonborn", label: "Dragonborn (D&D 5e)" },
+  { value: "half-orc", label: "Half-Orc (D&D 5e)" },
   { value: "dragon", label: "Dragon" },
   { value: "human", label: "Human" },
   { value: "wizard", label: "Wizard" },
   { value: "vampire", label: "Vampire" },
+  { value: "witch", label: "Witch" },
+  { value: "pirate", label: "Pirate" },
+  { value: "goblin", label: "Goblin" },
   { value: "angel", label: "Angel" },
   { value: "demon", label: "Demon" },
   { value: "fairy", label: "Fairy" },
@@ -183,10 +188,10 @@ export const generatorPages: GeneratorPageConfig[] = [
   },
   {
     slug: "dragon-name-generator",
-    title: "Dragon Name Generator — Mighty Draconic Names",
-    metaDescription: "Generate ancient, epic dragon names with royal titles. Perfect for world-builders, writing, and D&D campaigns.",
+    title: "Dragon Name Generator — Mighty Draconic Names for D&D & RPGs",
+    metaDescription: "Generate ancient, epic dragon names with royal draconic titles. Perfect for D&D 5e wyrms, fantasy worldbuilding, and tabletop campaigns.",
     h1: "Dragon Name Generator",
-    description: "Generate ancient, multi-syllable names for legendary drakes.",
+    description: "Generate ancient, multi-syllable names for legendary drakes, wyrms, and elder dragons.",
     category: "Characters & Races",
     generatorConfig: {
       generatorType: "character",
@@ -195,13 +200,18 @@ export const generatorPages: GeneratorPageConfig[] = [
       gender: "any",
       quantity: 10
     },
-    about: "Dragons are timeless, powerful creatures. Draconic names sound massive, ancient, and majestic, using elongated vowel clusters and explosive consonants.",
-    characteristics: "Elongated vowels (aa, oo, uu) combined with suffix additions like -thrax, -rax, and -morth, often followed by descriptive titles like 'the Dread' or 'the Fire Drake'.",
+    about: "Dragons are apex predators of arcane power and primordial fire in fantasy mythology. Within tabletop roleplaying and epic worldbuilding, a dragon's true name is not merely a label, but a proclamation of power, age, hoard size, and destructive deeds spanning centuries.\n\nDraconic names mirror the physiological grandeur of wyrms: elongated, resonant vowel sounds represent rumbling roars, while harsh guttural stops emulate snapping jaws and clashing scales. True dragon names grow more elaborate as the beast ages, accumulating honorifics and elemental titles that strike terror into mortal kingdoms.",
+    characteristics: "Elongated vowel combinations (aa, oo, ae, y) paired with sharp plosives and draconic suffixes (-thrax, -morth, -zar, -gath). Often accompanied by grandiose elemental titles such as 'the Flame-Scourge', 'the Dread', or 'the World-Ender'.",
     faqs: [
-      { q: "How do you name a dragon?", a: "Select long, rolling, powerful syllables that sound heavy and ancient when spoken aloud." },
-      { q: "What do dragon titles mean?", a: "Titles represent their elemental alignment, age, or past acts of destruction." }
+      { q: "How do you choose a great dragon name for D&D 5e?", a: "Combine heavy guttural syllables that feel weighty when spoken aloud, paired with a descriptive epithet reflecting their chromatic or metallic breath weapon." },
+      { q: "What do dragon titles mean in fantasy lore?", a: "Dragon titles commemorate their greatest conquests, hoard acquisitions, or apocalyptic campaigns against mortal realms." }
     ],
-    relatedSlugs: ["wizard-name-generator", "demon-name-generator", "fantasy-kingdom-name-generator", "creature-name-generator"]
+    relatedSlugs: ["dragonborn-name-generator", "wizard-name-generator", "demon-name-generator"],
+    exampleNames: [
+      { name: "Baelvrynn the World-Ender", pronunciation: "BAIL-vrin the WORLD-en-der", meaning: "Elder Draconic: 'Bael' (devouring flame) + 'vrynn' (ancient terror)" },
+      { name: "Igniscar the Ash-Bringer", pronunciation: "IG-nis-kar the ASH-bring-er", meaning: "High Wyrm: 'Igni' (primal fire) + 'scar' (world-cleaver)" },
+      { name: "Vermithrax the Undying", pronunciation: "ver-mi-THRAKS the un-DY-ing", meaning: "Ancient Drake: 'Vermi' (venom-bound) + 'thrax' (iron-hide)" }
+    ]
   },
 
   {
@@ -227,10 +237,10 @@ export const generatorPages: GeneratorPageConfig[] = [
   },
   {
     slug: "vampire-name-generator",
-    title: "Vampire Name Generator — Gothic Noble Names",
-    metaDescription: "Generate gothic, elegant vampire names and noble house titles. Perfect for gothic horror writing and RPGs.",
+    title: "Vampire Name Generator — Gothic Aristocratic & Bloodline Names",
+    metaDescription: "Generate elegant, gothic vampire names and aristocratic house titles. Ideal for Vampire: The Masquerade, D&D undead, and gothic horror fiction.",
     h1: "Vampire Name Generator",
-    description: "Generate dark, aristocratic gothic names for immortal nobles.",
+    description: "Generate dark, aristocratic gothic names for immortal nobles, bloodline lords, and creatures of the night.",
     category: "Characters & Races",
     generatorConfig: {
       generatorType: "character",
@@ -239,12 +249,18 @@ export const generatorPages: GeneratorPageConfig[] = [
       gender: "any",
       quantity: 10
     },
-    about: "Vampire names represent timeless elegance and gothic horror, heavily drawing from Eastern European aristocracy and ancient dark lineages.",
-    characteristics: "Sophisticated classical first names accompanied by historic, sinister surnames like 'Von Carstein' or 'Bathory'.",
+    about: "Vampires personify immortality, decadence, and aristocratic terror. Haunting the shadow-draped halls of gothic castles and high-society masquerades, undead lords preserve dynastic names that predate mortal empires, carrying the memory of forgotten royal lineages.\n\nTheir naming conventions heavily reflect historical European aristocracy—predominantly Austro-Hungarian, Romanian, French, and Victorian British nobilities. A vampire's name carries an innate cadence of polite sophistication layered over lethal predatory intent.",
+    characteristics: "Refined, multi-syllabic classical given names (Cassian, Vladislaus, Seraphina) coupled with dynastic house prefixes ('Von', 'De') and sinister geographic surnames (Carstein, Bathory, Ravencrest).",
     faqs: [
-      { q: "What language base do vampire names use?", a: "They frequently draw from Romanian, German, French, and Latin noble families." }
+      { q: "What linguistic base do gothic vampire names use?", a: "Vampire names frequently blend Eastern European Slavic phonetics (Romanian, Hungarian) with Old German, French nobility prefixes, and Latinate roots." },
+      { q: "Can I use these names for Vampire: The Masquerade?", a: "Yes. The generated names suit ancient elders, Ventrue oligarchs, Toreador artists, and Lasombra shadow lords." }
     ],
-    relatedSlugs: ["dark-elf-name-generator", "demon-name-generator", "fantasy-tavern-name-generator", "fantasy-username-generator"]
+    relatedSlugs: ["demon-name-generator", "witch-name-generator", "dark-elf-name-generator"],
+    exampleNames: [
+      { name: "Cassian Von Carstein", pronunciation: "KAS-ee-un von KAR-styne", meaning: "Imperial Lineage: 'Cassian' (hollow night) + dynastic vampire house" },
+      { name: "Seraphina Bathory", pronunciation: "sair-uh-FEE-nuh BAH-thor-ee", meaning: "Archaic Gothic: 'Seraphina' (fiery spirit) + historical blood countess namesake" },
+      { name: "Vladislaus Ravencrest", pronunciation: "VLAD-is-lows RAY-ven-krest", meaning: "Ancient Brood: 'Vladislaus' (glorious ruler) + ancestral dark manor seat" }
+    ]
   },
   {
     slug: "angel-name-generator",
@@ -269,10 +285,10 @@ export const generatorPages: GeneratorPageConfig[] = [
   },
   {
     slug: "demon-name-generator",
-    title: "Demon Name Generator — Sinister Abyssal Names",
-    metaDescription: "Generate terrifying, abyssal names for demons and underworld lords. Perfect for dark fantasy writing.",
+    title: "Demon Name Generator — Abyssal & Infernal Fiend Names",
+    metaDescription: "Generate terrifying, sinister demon names and abyssal lord titles. Perfect for D&D fiends, underworld bosses, and grimdark campaigns.",
     h1: "Demon Name Generator",
-    description: "Generate dark, threatening names for abyssal lords and fiends.",
+    description: "Generate dark, threatening names for abyssal lords, underworld fiends, and pact-makers.",
     category: "Characters & Races",
     generatorConfig: {
       generatorType: "character",
@@ -281,12 +297,18 @@ export const generatorPages: GeneratorPageConfig[] = [
       gender: "any",
       quantity: 10
     },
-    about: "Demonic names evoke threat, hellfire, and ancient pacts. Their language sounds complex, heavy, and contains deep throat fricatives.",
-    characteristics: "Aggressive prefix clusters combined with heavy suffixes like -oth, -aroth, and -zebub.",
+    about: "Fiends of the Lower Planes embody cosmic entropy, malice, and corruption. Whether spawned from the churning chaotic flesh of the Abyss or forged in the rigid infernal brass of the Nine Hells, a demon's name is an incantation of ruin, often spoken only in whispers by fearful mortal cultists.\n\nDemonic and Abyssal nomenclature relies on harsh, jarring phonetic collisions that sound unnatural on mortal tongues. In tabletop lore, discovering a demon's true name grants absolute occult power over the creature, making fiends guard their true designations with lethal paranoia.",
+    characteristics: "Explosive guttural plosives (k, z, x, th, gh), apostrophes signifying glottal catches, and heavy abyssal suffixes (-gath, -oth, -morth, -zebub) paired with dread titles like 'the Hell-Forged' or 'the Soul-Reaper'.",
     faqs: [
-      { q: "What are demon names useful for?", a: "Antagonists, dark fantasy summoning arcs, and boss enemies in RPGs." }
+      { q: "What is the difference between demonic and devilish names?", a: "Demonic names are chaotic, harsh, and guttural (Abyssal), while devilish names (Infernal) often exhibit twisted legalistic Latinate elegance." },
+      { q: "What are demon true names in fantasy RPGs?", a: "True names represent a fiend's core essence; summoning rituals require knowing this secret name to bind or banish the fiend." }
     ],
-    relatedSlugs: ["vampire-name-generator", "angel-name-generator", "orc-name-generator", "fantasy-clan-name-generator"]
+    relatedSlugs: ["tiefling-name-generator", "vampire-name-generator", "warhammer-name-generator"],
+    exampleNames: [
+      { name: "Malok the Hell-Forged", pronunciation: "MAY-lok the HEL-forjd", meaning: "Abyssal: 'Mal' (wrath/spite) + 'ok' (unyielding monolith)" },
+      { name: "Xul'Garith the Soul-Reaper", pronunciation: "zool-GAH-rith the SOHL-ree-per", meaning: "Infernal: 'Xul' (void) + 'Garith' (consumer of oaths)" },
+      { name: "Belzador the Flesh-Tearer", pronunciation: "bel-ZAY-dor the FLESH-tair-er", meaning: "Archfiend: 'Bel' (dark lord) + 'zador' (dread master)" }
+    ]
   },
   {
     slug: "fairy-name-generator",
@@ -555,6 +577,276 @@ export const generatorPages: GeneratorPageConfig[] = [
       { name: "Brother Torgian of the Black Templars", pronunciation: "BROTH-er TOR-gee-an", meaning: "Zealous Crusader Battle-Brother" },
       { name: "Severus the Dreadnought", pronunciation: "SEV-er-us the DRED-nawt", meaning: "Ancient Entomed Hero of the Imperium" },
       { name: "Drakus the Ironclad", pronunciation: "DRAH-kus the EYE-urn-klad", meaning: "Indomitable Siege Commander" }
+    ]
+  },
+  {
+    slug: "pirate-name-generator",
+    title: "Pirate Name Generator — Swashbuckling Scallywag & Buccaneer Names",
+    metaDescription: "Generate authentic and legendary pirate names, colorful swashbuckling nicknames, and sea rover titles. Great for Sea of Thieves, D&D nautical campaigns, and pirate fiction.",
+    h1: "Pirate Name Generator",
+    description: "Generate legendary swashbucklers, feared corsairs, and colorful pirate nicknames for high-seas adventures.",
+    category: "Characters & Races",
+    generatorConfig: {
+      generatorType: "character",
+      race: "pirate",
+      style: "warrior",
+      gender: "any",
+      quantity: 10
+    },
+    about: "The Golden Age of Piracy gave rise to the most colorful, defiant outlaws in maritime history. From the lawless coves of Tortuga and Nassau to the stormy waters of the Spanish Main, pirates abandoned their mundane birth names to adopt fearsome sea monikers that struck dread into merchant galleons.\n\nA pirate's moniker was their brand and weapon. Nicknames commemorated notorious physical traits, favored weapons of choice, or the terrifying aftermath of sea raids, ensuring that news of their approach sparked panic along the coastlines.",
+    characteristics: "Traditional colonial maritime given names (Jack, Bartholomew, Anne) merged with swaggering nautical descriptors ('Cutlass', 'Ironhook', 'Salt-Breeze') and titles denoting rank aboard the ship or home pirate havens.",
+    faqs: [
+      { q: "How did historical pirates get their nicknames?", a: "Sailors earned nicknames from physical scars, naval weapons, weather endurance, or notorious acts of defiance on the open sea." },
+      { q: "Can I use these names for Sea of Thieves or D&D campaigns?", a: "Yes. These names work seamlessly for player captains, pirate crews, NPC privateers, and tavern barkeeps in any nautical RPG." }
+    ],
+    relatedSlugs: ["ship-name-generator", "tavern-name-generator", "fantasy-character-name-generator"],
+    exampleNames: [
+      { name: "Captain Jack \"Cutlass\" Morgan", pronunciation: "KAP-tin jak KUT-lus MOR-gan", meaning: "Buccaneer Legend: Master bladesman title + notorious privateer family lineage" },
+      { name: "Mary \"Ironhook\" of Tortuga", pronunciation: "MAIR-ee EYE-urn-hook ov tor-TOO-guh", meaning: "Sea Rover: Lethal boarding hook moniker + infamous pirate republic haven" },
+      { name: "Bartholomew \"Salt-Breeze\" Drake", pronunciation: "bar-THOL-oh-myoo SALT-breez drayk", meaning: "Corsair: Weathered navigator descriptor + historic naval buccaneer name" }
+    ]
+  },
+  {
+    slug: "witch-name-generator",
+    title: "Witch Name Generator — Mystical Coven, Crone & Sorceress Names",
+    metaDescription: "Generate haunting, pagan, and occult witch names. Ideal for D&D warlocks, bog crones, hedge witches, and dark fantasy fiction.",
+    h1: "Witch Name Generator",
+    description: "Generate haunting occult names, coven titles, and herbalist surnames for witches, sorceresses, and warlocks.",
+    category: "Characters & Races",
+    generatorConfig: {
+      generatorType: "character",
+      race: "witch",
+      style: "gothic",
+      gender: "any",
+      quantity: 10
+    },
+    about: "Witches bridge the boundary between the mortal realm and primeval natural spirits. From solitary hedge witches brewing poultices in misty bogs to ancient coven matriarchs chanting under blood-red moons, witch names echo with botanical poison, folkloric superstition, and arcane reverence.\n\nUnlike academic wizards who study rigid spellbooks in stone towers, witches draw their designations from ancestral bloodlines, deadly flora, and lunar phases. Their surnames frequently invoke the poisonous herbs, gloomy groves, and nocturnal predators integral to their craft.",
+    characteristics: "Archaic Celtic, Old English, and Greco-Roman given names (Morrigan, Hecate, Rowena) paired with botanical poisonous surnames (Nightshade, Hellebore, Wormwood) or cryptic coven honorifics ('the Hexweaver', 'of the Whispering Bog').",
+    faqs: [
+      { q: "What makes a name sound like a fantasy witch?", a: "Pairing classical folkloric first names with botanical toxins, deep forest locations, and lunar or corvid motifs creates an immediate occult atmosphere." },
+      { q: "Are these names suitable for D&D Warlocks and Druids?", a: "Yes. They fit Circle of the Moon druids, Archfey warlocks, and hedge herbalists across all tabletop RPGs." }
+    ],
+    relatedSlugs: ["vampire-name-generator", "wizard-name-generator", "demon-name-generator"],
+    exampleNames: [
+      { name: "Morrigan Nightshade", pronunciation: "MOR-ih-gun NYT-shayd", meaning: "Celtic & Botanical: Celtic phantom goddess + lethal belladonna herb" },
+      { name: "Hecate the Hexweaver", pronunciation: "HEK-uh-tee the HEKS-wee-ver", meaning: "Greek Occult: Underworld patroness of magic + weaver of binding hexes" },
+      { name: "Rowena of the Whispering Bog", pronunciation: "roh-WEE-nuh ov the WHIS-per-ing bog", meaning: "Folkloric Crone: Anglo-Saxon slender tree root + primeval swamp domain" }
+    ]
+  },
+  {
+    slug: "dragonborn-name-generator",
+    title: "Dragonborn Name Generator — D&D 5e Draconic & Clan Names",
+    metaDescription: "Generate authentic D&D 5e Dragonborn names with traditional clan lineages and draconic honor virtues. Perfect for tabletop players and DMs.",
+    h1: "Dragonborn Name Generator (D&D 5e)",
+    description: "Generate authentic D&D 5e Dragonborn names featuring ancient clan lineages, Draconic syllables, and virtue titles.",
+    category: "Characters & Races",
+    generatorConfig: {
+      generatorType: "character",
+      race: "dragonborn",
+      style: "ancient",
+      gender: "any",
+      quantity: 10
+    },
+    about: "In Dungeons & Dragons 5e, Dragonborn are proud, honor-bound humanoids shaped by the blood of dragons. For a Dragonborn, clan honor precedes personal glory: a Dragonborn will die to uphold the reputation of their ancestral house, and dishonoring one's clan is a fate worse than death.\n\nCanonical Dragonborn names consist of a personal birth name and an ancient clan name. In formal introductions, Dragonborn state their clan name first as a mark of respect to their forebears. During youth or following monumental deeds, many also adopt childhood virtue nicknames that define their philosophical path.",
+    characteristics: "Multi-syllabic, rolling Draconic prefixes and suffixes with hard consonants (k, r, th, sh). Incorporates canonical D&D 5e clan names (Clethtinthiallor, Daardendrian, Delmirev) alongside honorable virtue epithets.",
+    faqs: [
+      { q: "Why do Dragonborn put their clan name first?", a: "In D&D 5e lore, Dragonborn value their clan's standing above individual identity, leading them to present the clan name before their personal name in formal speech." },
+      { q: "What are Dragonborn childhood names?", a: "Childhood names are descriptive nicknames or virtue words bestowed by clan elders (e.g., Scaleward, Flame-Bearer) that a Dragonborn may keep into adulthood." }
+    ],
+    relatedSlugs: ["dragon-name-generator", "tiefling-name-generator", "half-orc-name-generator"],
+    exampleNames: [
+      { name: "Daardendrian Rhogar", pronunciation: "dar-den-DREE-an ROH-gar", meaning: "D&D 5e Canonical: Honored ancestral clan name + 'Rhogar' (flame-crested warrior)" },
+      { name: "Clethtinthiallor Akra", pronunciation: "kleth-tin-thee-AL-or AH-kruh", meaning: "Ancient Mountain Clan: Draconic peak lineage + 'Akra' (first breath of dawn)" },
+      { name: "Torinn the Scaleward of Clan Delmirev", pronunciation: "TOR-in the SKAYL-ward", meaning: "Clan Champion: 'Torinn' (thunder-horn) + clan ward guardian title" }
+    ]
+  },
+  {
+    slug: "half-orc-name-generator",
+    title: "Half-Orc Name Generator — D&D 5e Guttural & Warrior Names",
+    metaDescription: "Generate battle-tested D&D 5e Half-Orc names. Perfect for barbarians, fighters, and mercenaries walking between human cities and orc tribes.",
+    h1: "Half-Orc Name Generator (D&D 5e)",
+    description: "Generate battle-tested D&D 5e Half-Orc names, combining guttural tribal power with human frontier surnames.",
+    category: "Characters & Races",
+    generatorConfig: {
+      generatorType: "character",
+      race: "half-orc",
+      style: "warrior",
+      gender: "any",
+      quantity: 10
+    },
+    about: "Half-Orcs walk between two worlds, bearing the physical majesty and raw fury of orcish blood alongside the adaptable tenacity of humanity. In D&D 5e, half-orcs often fight to carve out their own identity, earning respect through indomitable resilience and unmatched physical grit.\n\nTheir naming traditions reflect this dual heritage. Some half-orcs raised among human frontier settlements adopt human surnames alongside sharp, guttural orcish first names. Others raised near orc warbands carry battle epithets celebrating wounds survived, skulls cleaved, and challenges won.",
+    characteristics: "Punchy, monosyllabic and disyllabic guttural first names (Thokk, Dench, Baggi, Krusk) paired with visceral martial epithets (Skull-Cleaver, Iron-Jaw, Blight-Walker) or rough human frontier trade names.",
+    faqs: [
+      { q: "How do Half-Orcs choose their names in D&D?", a: "Depending on where they were raised, Half-Orcs may carry a harsh Orcish birth name, adopt a human trade surname, or earn a violent warrior title through battle." },
+      { q: "What classes suit Half-Orc characters?", a: "Their Relentless Endurance and Savage Attacks racial traits make them iconic Barbarians, Fighters, Paladins, and rugged Rangers." }
+    ],
+    relatedSlugs: ["orc-name-generator", "dragonborn-name-generator", "dwarf-name-generator"],
+    exampleNames: [
+      { name: "Thokk Skull-Cleaver", pronunciation: "THAHK SKUL-klee-ver", meaning: "Orcish Guttural: Monosyllabic war-cry birth name + battlefield achievement title" },
+      { name: "Baggi Stoneshield", pronunciation: "BAG-ee STONE-sheeld", meaning: "Clan Vanguard: Traditional orc matriarch root + stalwart defensive sentinel moniker" },
+      { name: "Dench \"Iron-Jaw\" Miller", pronunciation: "DENCH EYE-urn-jaw MIL-er", meaning: "Frontier Dual Heritage: Orcish personal name + gladiator moniker + human trade surname" }
+    ]
+  },
+  {
+    slug: "tavern-name-generator",
+    title: "Tavern Name Generator — Cozy Fantasy Inn & Pub Names",
+    metaDescription: "Generate memorable fantasy tavern and pub names for tabletop RPGs. Perfect for D&D adventuring hubs, roadside inns, and bustling harbor taverns.",
+    h1: "Tavern Name Generator",
+    description: "Generate flavorful fantasy tavern names, cozy traveler inns, and bustling alehouses for your tabletop campaigns.",
+    category: "Places",
+    generatorConfig: {
+      generatorType: "tavern",
+      race: "tavern",
+      style: "none",
+      gender: "any",
+      quantity: 10
+    },
+    about: "Every great fantasy adventure begins in a tavern. Across tabletop roleplaying games and epic fantasy sagas, the local alehouse serves as the crossroads of civilization—a warm haven of crackling hearth fires, foaming tankards of ale, shady figures in dark corners, and bounty boards that set heroes on epic quests.\n\nFantasy tavern names balance memorable humor with local flavor. Since many common folk in medieval fantasy settings cannot read, taverns historically relied on vivid pictorial signboard art—such as a prancing pony or a sleeping dragon—leading to colorful descriptive names that travelers easily recognized.",
+    characteristics: "Classic heraldic pairings of descriptive adjectives (Drunken, Prancing, Jolly, Screaming) with evocative animals, heraldic symbols, or drinking vessels (Dragon, Pony, Flagon, Anchor).",
+    faqs: [
+      { q: "Why do fantasy taverns have names like 'The Prancing Pony'?", a: "Historic taverns hung painted visual signs with simple animals or symbols so illiterate travelers could easily recognize and talk about the establishment." },
+      { q: "How do I pick a tavern name that fits my D&D town?", a: "Match the tavern name to its local district: harbor towns favor nautical symbols (Rusty Anchor), while mountain outposts favor beasts (Howling Wolf)." }
+    ],
+    relatedSlugs: ["ship-name-generator", "city-name-generator", "pirate-name-generator"],
+    exampleNames: [
+      { name: "The Drunken Dragon", pronunciation: "the DRUNG-kin DRAG-un", meaning: "High Fantasy Alehouse: Iconic heraldic motif pairing a fearsome beast with tavern spirits" },
+      { name: "The Rusty Anchor Tavern", pronunciation: "the RUST-ee ANG-kor", meaning: "Harbor Watering Hole: Salty dockside establishment catering to sailors and corsairs" },
+      { name: "The Screaming Flagon Inn", pronunciation: "the SKREE-ming FLAG-un", meaning: "Raucous Crossroads Inn: Celebrates rowdy minstrel tunes, games of dice, and endless ale" }
+    ]
+  },
+  {
+    slug: "ship-name-generator",
+    title: "Ship Name Generator — Majestic Galleon, Pirate & Warship Names",
+    metaDescription: "Generate legendary ship names for pirate sloops, naval frigates, and ghost vessels. Ideal for nautical campaigns, Sea of Thieves, and fantasy authors.",
+    h1: "Ship Name Generator",
+    description: "Generate legendary pirate sloops, majestic naval galleons, and ghostly warships for high-seas campaigns.",
+    category: "Objects",
+    generatorConfig: {
+      generatorType: "ship",
+      race: "ship",
+      style: "none",
+      gender: "any",
+      quantity: 10
+    },
+    about: "To sailors, privateers, and pirates alike, a ship is far more than timber and sails—she is a living entity with her own temperament, luck, and destiny. From regal three-masted royal flagships patrolling naval trade routes to ominous black-sailed sloops prowling misty straits, a ship's name announces her commander's ambitions.\n\nNaval naming traditions weave together royal majesty, classical muses, celestial guides, and fearsome oceanic predators. Pirates frequently christened their vessels with defiant, vengeful titles designed to shatter the morale of enemy crews before the first broadside cannon was fired.",
+    characteristics: "Dramatic pairings of ocean predators, mythical beings, or celestial portents with regal adjectives ('The Crimson Corsair', 'The Sea Wolf's Revenge', 'Queen of the Tides').",
+    faqs: [
+      { q: "How do I choose a good name for a pirate ship?", a: "Select names that evoke danger, wrath, or defiance, such as 'Revenge', 'Predator', or 'Kraken', signaling ruthlessness on the open waters." },
+      { q: "What naming styles work best for naval warships?", a: "Naval warships traditionally bear names celebrating royal crowns, virtues (Indomitable, Dauntless), or patron deities." }
+    ],
+    relatedSlugs: ["pirate-name-generator", "tavern-name-generator", "city-name-generator"],
+    exampleNames: [
+      { name: "The Crimson Corsair", pronunciation: "the KRIM-zun KOR-sair", meaning: "Pirate Flagship: Blood-stained sails signifying ruthless naval boarding tactics" },
+      { name: "The Sea Wolf's Revenge", pronunciation: "the SEE woolf ruh-VENJ", meaning: "Defiant Sloop: Honoring a fallen captain's legacy through high-seas vengeance" },
+      { name: "The Maiden of the Waves", pronunciation: "the MAY-den ov the WAYVZ", meaning: "Royal Frigate: Classical muse figurehead patron designed for long ocean crossings" }
+    ]
+  },
+  {
+    slug: "city-name-generator",
+    title: "City Name Generator — Majestic Fantasy City & Settlement Names",
+    metaDescription: "Generate rich, worldbuilding-ready fantasy city names, bustling trade capitals, and ancient fortresses for D&D and fantasy writers.",
+    h1: "City Name Generator",
+    description: "Generate rich, believable fantasy city names, bustling mercantile ports, and fortified mountain citadels.",
+    category: "Places",
+    generatorConfig: {
+      generatorType: "city",
+      race: "city",
+      style: "none",
+      gender: "any",
+      quantity: 10
+    },
+    about: "Cities are the crowning jewels of civilization in fantasy worldbuilding. Whether perched atop windswept cliffs, spanning strategic river bridges, or nestled deep inside subterranean caverns, great cities evolve over centuries as centers of commerce, political intrigue, and magical scholarship.\n\nA believable fantasy city name reflects its geographic advantages, founding hero, primary industry, or historical defense. Suffixes like '-haven', '-spire', '-burg', and '-ford' anchor cities in reality while evocative prefixes highlight local mineral wealth or ancient lore.",
+    characteristics: "Geographic and topographic prefixes (Silver-, Iron-, Oak-, River-, Stone-) combined with classic settlement suffixes (-haven, -spire, -port, -ford, -reach, -keep).",
+    faqs: [
+      { q: "What makes a fantasy city name believable?", a: "Grounding the name in topography, nearby resources, or strategic defense (like a river crossing or natural harbor) makes settlements feel organic and historic." },
+      { q: "Can I use these names for fantasy mapmaking?", a: "Yes. These names work seamlessly on regional and continent maps for D&D homebrew worlds and fantasy novels." }
+    ],
+    relatedSlugs: ["tavern-name-generator", "ship-name-generator", "fantasy-kingdom-name-generator"],
+    exampleNames: [
+      { name: "Silverhaven", pronunciation: "SIL-ver-hay-ven", meaning: "Coastal Trade Citadel: 'Silver' (mineral wealth) + 'haven' (protected natural bay harbor)" },
+      { name: "Ironspire", pronunciation: "EYE-urn-spyre", meaning: "Mountain Stronghold: 'Iron' (unyielding military defense) + 'spire' (towering vertical fortress)" },
+      { name: "Oakhaven Crossing", pronunciation: "OHK-hay-ven KROS-ing", meaning: "River Trade Hub: Primeval oak forest sanctuary situated at an essential river transit point" }
+    ]
+  },
+  {
+    slug: "kingdom-name-generator",
+    title: "Kingdom Name Generator — Sovereign Fantasy Realm Names",
+    metaDescription: "Generate majestic kingdom names, sovereign empires, and feudal realms for fantasy worldbuilding and tabletop RPG campaigns.",
+    h1: "Kingdom Name Generator",
+    description: "Generate sovereign fantasy kingdoms, grand empires, and ancient realms for your worldbuilding maps.",
+    category: "Places",
+    generatorConfig: {
+      generatorType: "kingdom",
+      race: "kingdom",
+      style: "royal",
+      gender: "any",
+      quantity: 10
+    },
+    about: "Kingdoms form the geopolitical backbone of high fantasy worldbuilding. Across expansive continents, sovereign empires rise and fall through dynastic marriages, divine mandates, and epic wars of conquest.\n\nA kingdom's name commands authority and ancient tradition. Combining noble lineage roots with geographic domains, kingdom names evoke grandeur and historical legacy on campaign maps.",
+    characteristics: "Regal Latinate, Anglo-Saxon, and High Fantasy syllable cadences ending in sovereign descriptors like Empire, Realm, Dominion, or Sovereign.",
+    faqs: [
+      { q: "How do I choose a kingdom name for my world map?", a: "Consider the kingdom's founding culture and primary biome: harsh mountainous realms favor harder consonants, while coastal empires favor flowing vowels." },
+      { q: "What titles pair well with fantasy realms?", a: "Empires, Dominions, Principalities, and High Kingdoms each convey distinct political scales and governance structures." }
+    ],
+    relatedSlugs: ["city-name-generator", "fantasy-kingdom-name-generator", "fantasy-clan-name-generator"],
+    exampleNames: [
+      { name: "The Kingdom of Aethelgard", pronunciation: "AY-thel-gard", meaning: "Ancient Royal Domain: 'Aethel' (noble/divine) + 'gard' (guarded sanctuary)" },
+      { name: "Valeria Sovereign Realm", pronunciation: "vuh-LEER-ee-uh", meaning: "Imperial Dynasty: Latinate root for strength and unbroken martial vigor" },
+      { name: "The High Empire of Solaria", pronunciation: "soh-LAIR-ee-uh", meaning: "Celestial Monarchy: Dedicated to the eternal sun and divine kingship" }
+    ]
+  },
+  {
+    slug: "goblin-name-generator",
+    title: "Goblin Name Generator — Sneaky, Scavenger & Trickster Names",
+    metaDescription: "Generate cunning, snappy goblin names and hilarious scavenging epithets. Perfect for D&D 5e encounters, comic villains, and dungeon dwellers.",
+    h1: "Goblin Name Generator",
+    description: "Generate snappy, cunning goblin names, trickster titles, and scavenged epithets for tabletop RPGs.",
+    category: "Characters & Races",
+    generatorConfig: {
+      generatorType: "character",
+      race: "goblin",
+      style: "warrior",
+      gender: "any",
+      quantity: 10
+    },
+    about: "Goblins are small, cunning, and irrepressible humanoids renowned across fantasy worlds for their frantic energy, makeshift engineering, and survival instincts. Thriving in subterranean warrens and junk-laden encampments, goblins rely on sharp wits and sheer numbers to outsmart larger foes.\n\nGoblin names are short, sharp, and explosive, sounding almost like the clatter of loose gears or the snap of a twig. Many goblins earn colorful descriptive epithets celebrating stolen treasures, lucky escapes, or bizarre bodily quirks.",
+    characteristics: "Punchy, monosyllabic names featuring abrasive consonants (k, g, z, x, t) paired with humorous or thieving epithets ('Gold-Snatcher', 'Back-Stabber', 'Greasetooth').",
+    faqs: [
+      { q: "What makes a great goblin name in D&D?", a: "Quick, energetic monosyllables that sound playful yet slightly chaotic, paired with a funny or thieving nickname." },
+      { q: "Can goblins have clan names?", a: "Goblins usually affiliate with crude tribes or warbands named after scavenged objects, vermin, or broken weapons." }
+    ],
+    relatedSlugs: ["orc-name-generator", "half-orc-name-generator", "dwarf-name-generator"],
+    exampleNames: [
+      { name: "Grik Gold-Snatcher", pronunciation: "GRIK GOLD-snatch-er", meaning: "Greedy Scavenger: Snappy monosyllable + notorious thieving specialty" },
+      { name: "Snik Back-Stabber", pronunciation: "SNIK BAK-stab-er", meaning: "Cunning Rogue: Sharp blade sound + dishonorable combat style" },
+      { name: "Kraggle Greasetooth", pronunciation: "KRAG-ul GREES-tooth", meaning: "Tinkerer Goblin: Clattering gear name + mechanical engine grime quirk" }
+    ]
+  },
+  {
+    slug: "guild-name-generator",
+    title: "Guild Name Generator — Factions, Fellowships & Orders",
+    metaDescription: "Generate legendary guild names, secret brotherhoods, thieves' syndicates, and mage colleges for D&D and tabletop RPG campaigns.",
+    h1: "Guild Name Generator",
+    description: "Generate prestigious merchant guilds, clandestine thieves' syndicates, and knightly fellowships.",
+    category: "Organizations",
+    generatorConfig: {
+      generatorType: "guild",
+      race: "guild",
+      style: "none",
+      gender: "any",
+      quantity: 10
+    },
+    about: "Guilds represent organized power, commerce, and brotherhood within fantasy cities. Whether pulling political strings as wealthy merchant consortiums, operating from subterranean shadows as assassin syndicates, or researching forbidden magic in cloistered colleges, guilds give structure to urban adventure.\n\nA guild's name establishes its prestige and secrecy. Knighthoods and paladin orders adopt celestial and heraldic terminology, while underworld rings favor veiled, double-edged descriptors that communicate danger to rivals.",
+    characteristics: "Structured formats combining noble or covert modifiers (Golden, Silent, Obsidian, Hallowed) with vocational nouns (Sentinels, Weavers, Shadows, Brotherhood).",
+    faqs: [
+      { q: "How are fantasy guild names structured?", a: "Most guilds follow patterns like 'The [Modifier] [Noun]' (The Iron Hand) or 'Brotherhood of [Noun]' (Order of the Silent Blade)." },
+      { q: "What guild types suit fantasy RPGs?", a: "Common guild categories include Merchant Consortiums, Thieves' Guilds, Mages' Colleges, and Holy Knight Orders." }
+    ],
+    relatedSlugs: ["city-name-generator", "fantasy-guild-name-generator", "fantasy-clan-name-generator"],
+    exampleNames: [
+      { name: "The Silent Shadows", pronunciation: "the SY-lent SHAD-ohz", meaning: "Underworld Syndicate: Covert thieves' guild operating undetected in city alleys" },
+      { name: "Order of the Silver Shield", pronunciation: "OR-der ov the SIL-ver SHEELD", meaning: "Paladin Fellowship: Chivalric order sworn to defend innocents from fiends" },
+      { name: "Brotherhood of Golden Alchemists", pronunciation: "BROTH-er-hood ov GOHL-den AL-kuh-mists", meaning: "Merchant Guild: Wealthy consortium controlling magical trade and potion commerce" }
     ]
   }
 ];

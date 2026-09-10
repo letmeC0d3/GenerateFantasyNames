@@ -23,7 +23,12 @@ import {
   usernameVocabulary,
   tieflingSyllabary,
   cyberpunkVocabulary,
-  warhammerVocabulary
+  warhammerVocabulary,
+  pirateVocabulary,
+  witchVocabulary,
+  dragonbornVocabulary,
+  halfOrcVocabulary,
+  goblinVocabulary
 } from "../data/syllabary";
 
 export interface GeneratorConfig {
@@ -695,6 +700,110 @@ function generateWarhammer(prng: DeterministicPRNG): { name: string; meaning: st
   };
 }
 
+function generatePirate(prng: DeterministicPRNG, gender: "male" | "female" | "any"): { name: string; meaning: string; pron: string } {
+  const isFemale = gender === "female" || (gender === "any" && prng.next() > 0.5);
+  const firstName = isFemale ? prng.pick(pirateVocabulary.female) : prng.pick(pirateVocabulary.male);
+  const epithet = prng.pick(pirateVocabulary.epithets);
+  const title = prng.pick(pirateVocabulary.titles);
+  const origin = prng.pick(pirateVocabulary.origins);
+
+  const roll = prng.next();
+  let name = "";
+  if (roll < 0.4) {
+    name = `${title} ${firstName} "${epithet}"`;
+  } else if (roll < 0.75) {
+    name = `${firstName} ${epithet}`;
+  } else {
+    name = `${title} ${firstName} ${origin}`;
+  }
+
+  return {
+    name: cleanSpelling(name),
+    meaning: "High Seas Scallywag & Buccaneer",
+    pron: `${firstName} ${epithet}`
+  };
+}
+
+function generateWitch(prng: DeterministicPRNG, gender: "male" | "female" | "any"): { name: string; meaning: string; pron: string } {
+  const isFemale = gender === "female" || (gender === "any" && prng.next() > 0.3);
+  const firstName = isFemale ? prng.pick(witchVocabulary.female) : prng.pick(witchVocabulary.male);
+  const surname = prng.pick(witchVocabulary.surnames);
+  const title = prng.pick(witchVocabulary.titles);
+
+  const roll = prng.next();
+  let name = "";
+  if (roll < 0.45) {
+    name = `${firstName} ${surname}`;
+  } else if (roll < 0.75) {
+    name = `${firstName} ${title}`;
+  } else {
+    name = `${firstName} ${surname}, ${title}`;
+  }
+
+  return {
+    name: cleanSpelling(name),
+    meaning: "Occult Spell-Weaver & Coven Mystic",
+    pron: `${firstName} ${surname}`
+  };
+}
+
+function generateDragonborn(prng: DeterministicPRNG, gender: "male" | "female" | "any"): { name: string; meaning: string; pron: string } {
+  const isFemale = gender === "female" || (gender === "any" && prng.next() > 0.5);
+  const firstName = isFemale ? prng.pick(dragonbornVocabulary.female) : prng.pick(dragonbornVocabulary.male);
+  const clan = prng.pick(dragonbornVocabulary.clans);
+  const virtue = prng.pick(dragonbornVocabulary.virtues);
+
+  const roll = prng.next();
+  let name = "";
+  if (roll < 0.5) {
+    name = `${clan} ${firstName}`;
+  } else if (roll < 0.8) {
+    name = `${firstName} ${clan}`;
+  } else {
+    name = `${firstName} ${virtue} of Clan ${clan}`;
+  }
+
+  return {
+    name: cleanSpelling(name),
+    meaning: "Honor-Bound Draconic Warrior of Clan Lineage",
+    pron: `${firstName} of Clan ${clan}`
+  };
+}
+
+function generateHalfOrc(prng: DeterministicPRNG, gender: "male" | "female" | "any"): { name: string; meaning: string; pron: string } {
+  const isFemale = gender === "female" || (gender === "any" && prng.next() > 0.5);
+  const firstName = isFemale ? prng.pick(halfOrcVocabulary.female) : prng.pick(halfOrcVocabulary.male);
+  const epithet = prng.pick(halfOrcVocabulary.epithets);
+  const humanSurname = prng.pick(halfOrcVocabulary.humanSurnames);
+
+  const roll = prng.next();
+  let name = "";
+  if (roll < 0.5) {
+    name = `${firstName} ${epithet}`;
+  } else if (roll < 0.85) {
+    name = `${firstName} ${humanSurname}`;
+  } else {
+    name = `${firstName} "${epithet}" ${humanSurname}`;
+  }
+
+  return {
+    name: cleanSpelling(name),
+    meaning: "Fierce-Tempered Warrior Walking Between Two Worlds",
+    pron: `${firstName} ${epithet}`
+  };
+}
+
+function generateGoblin(prng: DeterministicPRNG): { name: string; meaning: string; pron: string } {
+  const firstName = prng.pick(goblinVocabulary.firstNames);
+  const epithet = prng.pick(goblinVocabulary.epithets);
+
+  return {
+    name: cleanSpelling(`${firstName} ${epithet}`),
+    meaning: "Cunning Scavenger & Trickster",
+    pron: `${firstName} ${epithet}`
+  };
+}
+
 // -------------------------------------------------------------
 // DECOUPLED DATA-DRIVEN GENERATOR RULE REGISTRY
 // -------------------------------------------------------------
@@ -854,6 +963,36 @@ export const ruleRegistry: Record<string, GeneratorRule> = {
     name: "Warhammer",
     category: "entity",
     generate: (prng) => generateWarhammer(prng)
+  },
+  pirate: {
+    id: "pirate",
+    name: "Pirate",
+    category: "character",
+    generate: (prng, gender) => generatePirate(prng, gender || "any")
+  },
+  witch: {
+    id: "witch",
+    name: "Witch",
+    category: "character",
+    generate: (prng, gender) => generateWitch(prng, gender || "any")
+  },
+  dragonborn: {
+    id: "dragonborn",
+    name: "Dragonborn",
+    category: "character",
+    generate: (prng, gender) => generateDragonborn(prng, gender || "any")
+  },
+  "half-orc": {
+    id: "half-orc",
+    name: "Half-Orc",
+    category: "character",
+    generate: (prng, gender) => generateHalfOrc(prng, gender || "any")
+  },
+  goblin: {
+    id: "goblin",
+    name: "Goblin",
+    category: "character",
+    generate: (prng) => generateGoblin(prng)
   }
 };
 
@@ -902,15 +1041,19 @@ export function generateNames(config: GeneratorConfig): GeneratedName[] {
 
       // Resolve target rule key without hardcoded switches
       let targetKey = "";
-      if (generatorType === "character" || generatorType === "dnd") {
-        if (race === "none" || race === "any" || !race) {
-          const characterRaces = ["elf", "dark-elf", "dwarf", "orc", "dragon", "human", "wizard", "vampire", "angel", "demon", "fairy"];
-          targetKey = currentPrng.pick(characterRaces);
-        } else {
-          targetKey = race;
-        }
-      } else {
+      if (race && race !== "none" && race !== "any" && ruleRegistry[race]) {
+        targetKey = race;
+      } else if (generatorType && ruleRegistry[generatorType]) {
         targetKey = generatorType;
+      } else if (generatorType === "character" || generatorType === "dnd") {
+        const characterRaces = [
+          "elf", "dark-elf", "dwarf", "orc", "dragon", "human", "wizard",
+          "vampire", "angel", "demon", "fairy", "tiefling", "dragonborn",
+          "half-orc", "pirate", "witch", "goblin"
+        ];
+        targetKey = currentPrng.pick(characterRaces);
+      } else {
+        targetKey = "human";
       }
 
       // Execute rule via decoupled registry lookup
