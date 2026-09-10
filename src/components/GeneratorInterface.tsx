@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { generateNames, GeneratedName, GeneratorConfig } from "../lib/generatorEngine";
 import { generateSeed } from "../lib/prng";
 import { trackEvent } from "../lib/analytics";
+import { generatorTypeOptions, raceOptions, styleOptions } from "../data/registry";
+import { useIsMounted } from "../lib/favorites";
 import ResultsList from "./ResultsList";
 
 interface GeneratorInterfaceProps {
@@ -17,6 +19,7 @@ export default function GeneratorInterface({
   titleText = "Fantasy Name Generator",
   descriptionText = "Generate fantasy names that actually sound like they belong together."
 }: GeneratorInterfaceProps) {
+  const mounted = useIsMounted();
   const [generatorType, setGeneratorType] = useState<string>("character");
   const [race, setRace] = useState<string>("none");
   const [style, setStyle] = useState<string>("none");
@@ -25,49 +28,49 @@ export default function GeneratorInterface({
   const [seed, setSeed] = useState<string>("");
   const [names, setNames] = useState<GeneratedName[]>([]);
   const [shareFeedback, setShareFeedback] = useState<boolean>(false);
-  const [mounted, setMounted] = useState(false);
 
   // Sync state from query parameters on mount, or fallback to preset
   useEffect(() => {
-    setMounted(true);
-    const searchParams = new URLSearchParams(window.location.search);
-    
-    const queryType = searchParams.get("type");
-    const queryRace = searchParams.get("race");
-    const queryStyle = searchParams.get("style");
-    const queryGender = searchParams.get("gender");
-    const queryQty = searchParams.get("qty");
-    const querySeed = searchParams.get("seed");
+    queueMicrotask(() => {
+      const searchParams = new URLSearchParams(window.location.search);
+      
+      const queryType = searchParams.get("type");
+      const queryRace = searchParams.get("race");
+      const queryStyle = searchParams.get("style");
+      const queryGender = searchParams.get("gender");
+      const queryQty = searchParams.get("qty");
+      const querySeed = searchParams.get("seed");
 
-    const activeType = queryType || initialPreset.generatorType || "character";
-    const activeRace = queryRace || initialPreset.race || "none";
-    const activeStyle = queryStyle || initialPreset.style || "none";
-    const activeGender = (queryGender || initialPreset.gender || "any") as "male" | "female" | "any";
-    const activeQty = queryQty ? parseInt(queryQty, 10) : (initialPreset.quantity || 10);
-    const activeSeed = querySeed || generateSeed();
+      const activeType = queryType || initialPreset.generatorType || "character";
+      const activeRace = queryRace || initialPreset.race || "none";
+      const activeStyle = queryStyle || initialPreset.style || "none";
+      const activeGender = (queryGender || initialPreset.gender || "any") as "male" | "female" | "any";
+      const activeQty = queryQty ? parseInt(queryQty, 10) : (initialPreset.quantity || 10);
+      const activeSeed = querySeed || generateSeed();
 
-    setGeneratorType(activeType);
-    setRace(activeRace);
-    setStyle(activeStyle);
-    setGender(activeGender);
-    setQuantity(activeQty);
-    setSeed(activeSeed);
+      setGeneratorType(activeType);
+      setRace(activeRace);
+      setStyle(activeStyle);
+      setGender(activeGender);
+      setQuantity(activeQty);
+      setSeed(activeSeed);
 
-    // Initial deterministic generation on mount
-    const results = generateNames({
-      generatorType: activeType,
-      race: activeRace,
-      style: activeStyle,
-      gender: activeGender,
-      quantity: activeQty,
-      seed: activeSeed
-    });
-    setNames(results);
+      // Initial deterministic generation on mount
+      const results = generateNames({
+        generatorType: activeType,
+        race: activeRace,
+        style: activeStyle,
+        gender: activeGender,
+        quantity: activeQty,
+        seed: activeSeed
+      });
+      setNames(results);
 
-    trackEvent("generator_open", { 
-      generator_type: activeType, 
-      race: activeRace, 
-      style: activeStyle 
+      trackEvent("generator_open", { 
+        generator_type: activeType, 
+        race: activeRace, 
+        style: activeStyle 
+      });
     });
   }, [initialPreset]);
 
@@ -183,17 +186,11 @@ export default function GeneratorInterface({
                 }}
                 className="control-field px-3 pr-10 text-sm cursor-pointer appearance-none"
               >
-                <option value="character">Character</option>
-                <option value="dnd">D&D Race</option>
-                <option value="kingdom">Kingdom</option>
-                <option value="city">City</option>
-                <option value="guild">Guild</option>
-                <option value="clan">Clan</option>
-                <option value="tavern">Tavern</option>
-                <option value="ship">Ship</option>
-                <option value="weapon">Weapon</option>
-                <option value="creature">Creature</option>
-                <option value="username">Username</option>
+                {generatorTypeOptions.map((opt) => (
+                  <option key={opt.value} value={opt.value}>
+                    {opt.label}
+                  </option>
+                ))}
               </select>
               <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-slate-400">
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -216,18 +213,11 @@ export default function GeneratorInterface({
                   onChange={(e) => setRace(e.target.value)}
                   className="control-field px-3 pr-10 text-sm cursor-pointer appearance-none"
                 >
-                  <option value="any">Any Race (Random)</option>
-                  <option value="elf">Elf</option>
-                  <option value="dark-elf">Dark Elf (Drow)</option>
-                  <option value="dwarf">Dwarf</option>
-                  <option value="orc">Orc</option>
-                  <option value="dragon">Dragon</option>
-                  <option value="human">Human</option>
-                  <option value="wizard">Wizard</option>
-                  <option value="vampire">Vampire</option>
-                  <option value="angel">Angel</option>
-                  <option value="demon">Demon</option>
-                  <option value="fairy">Fairy</option>
+                  {raceOptions.map((opt) => (
+                    <option key={opt.value} value={opt.value}>
+                      {opt.label}
+                    </option>
+                  ))}
                 </select>
                 <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-slate-400">
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -250,11 +240,11 @@ export default function GeneratorInterface({
                 onChange={(e) => setStyle(e.target.value)}
                 className="control-field px-3 pr-10 text-sm cursor-pointer appearance-none"
               >
-                <option value="none">Standard / Genre Classic</option>
-                <option value="high-fantasy">High Fantasy</option>
-                <option value="dark-fantasy">Dark Fantasy</option>
-                <option value="ancient">Ancient</option>
-                <option value="royal">Royal</option>
+                {styleOptions.map((opt) => (
+                  <option key={opt.value} value={opt.value}>
+                    {opt.label}
+                  </option>
+                ))}
               </select>
               <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-slate-400">
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">

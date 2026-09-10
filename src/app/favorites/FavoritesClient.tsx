@@ -1,41 +1,19 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import { GeneratedName, RemixAction, remixName } from "../../lib/generatorEngine";
 import { trackEvent } from "../../lib/analytics";
+import { useFavorites, useIsMounted } from "../../lib/favorites";
 
 export default function FavoritesClient() {
-  const [favorites, setFavorites] = useState<GeneratedName[]>([]);
+  const [favorites, saveFavorites] = useFavorites();
+  const mounted = useIsMounted();
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [activeRemixId, setActiveRemixId] = useState<string | null>(null);
-  const [mounted, setMounted] = useState(false);
-
-  // Load favorites on mount
-  useEffect(() => {
-    setMounted(true);
-    try {
-      const stored = localStorage.getItem("gfn_favorites");
-      if (stored) {
-        setFavorites(JSON.parse(stored));
-      }
-    } catch (e) {
-      console.error("Failed to load favorites:", e);
-    }
-  }, []);
-
-  const saveFavorites = (list: GeneratedName[]) => {
-    try {
-      localStorage.setItem("gfn_favorites", JSON.stringify(list));
-      setFavorites(list);
-      // Trigger update on other layout components (like Navbar count)
-      window.dispatchEvent(new Event("favorites-updated"));
-    } catch (e) {
-      console.error("Failed to save favorites:", e);
-    }
-  };
+  const [copyAllFeedback, setCopyAllFeedback] = useState(false);
 
   const handleRemove = (nameText: string) => {
     const list = favorites.filter(f => f.name !== nameText);
@@ -58,6 +36,48 @@ export default function FavoritesClient() {
     setTimeout(() => {
       setCopiedId(null);
     }, 2000);
+  };
+
+  const handleCopyAll = () => {
+    if (favorites.length === 0) return;
+    const text = favorites.map(f => {
+      let line = f.name;
+      if (f.pronunciation) line += ` (${f.pronunciation})`;
+      if (f.meaning) line += ` - ${f.meaning}`;
+      return line;
+    }).join("\n");
+    navigator.clipboard.writeText(text);
+    setCopyAllFeedback(true);
+    trackEvent("copy_all", { count: favorites.length, source: "favorites_page" });
+    setTimeout(() => setCopyAllFeedback(false), 2000);
+  };
+
+  const handleExportTxt = () => {
+    if (favorites.length === 0) return;
+    const text = [
+      "# Saved Fantasy Names — GenerateFantasyNames.com",
+      `# Exported: ${new Date().toISOString()}`,
+      `# Total Names: ${favorites.length}`,
+      "",
+      ...favorites.map((f, i) => {
+        let line = `${i + 1}. ${f.name}`;
+        if (f.pronunciation) line += ` [${f.pronunciation}]`;
+        if (f.meaning) line += ` — ${f.meaning}`;
+        return line;
+      }),
+    ].join("\n");
+
+    const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `saved-fantasy-names-${Date.now()}.txt`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+
+    trackEvent("export_txt", { count: favorites.length, source: "favorites_page" });
   };
 
   const handleRemix = (index: number, nameObj: GeneratedName, action: RemixAction) => {
@@ -122,12 +142,46 @@ export default function FavoritesClient() {
             </p>
           </div>
           {favorites.length > 0 && (
-            <button
-              onClick={handleClearAll}
-              className="px-4 py-2 text-xs font-semibold text-rose-400 hover:text-white border border-rose-900/50 hover:bg-rose-950/20 rounded-lg transition-colors cursor-pointer"
-            >
-              Clear All Saved
-            </button>
+            <div className="flex flex-wrap items-center gap-2">
+              <button
+                onClick={handleCopyAll}
+                className="px-3.5 py-2 text-xs font-semibold rounded-lg border border-violet-400/30 bg-violet-950/30 text-violet-200 hover:bg-violet-900/40 hover:text-white transition-all cursor-pointer flex items-center gap-1.5"
+                title="Copy all names line-by-line"
+              >
+                {copyAllFeedback ? (
+                  <>
+                    <svg className="w-3.5 h-3.5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>Copied All!</span>
+                  </>
+                ) : (
+                  <>
+                    <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <rect x="9" y="9" width="11" height="11" rx="2" strokeWidth={2} />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 9V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7a2 2 0 002 2h3" />
+                    </svg>
+                    <span>Copy All</span>
+                  </>
+                )}
+              </button>
+              <button
+                onClick={handleExportTxt}
+                className="px-3.5 py-2 text-xs font-semibold rounded-lg border border-white/15 bg-white/5 text-slate-200 hover:bg-white/10 hover:text-white transition-all cursor-pointer flex items-center gap-1.5"
+                title="Download as plain text file"
+              >
+                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>
+                <span>Export as TXT</span>
+              </button>
+              <button
+                onClick={handleClearAll}
+                className="px-3.5 py-2 text-xs font-semibold text-rose-400 hover:text-white border border-rose-900/50 hover:bg-rose-950/20 rounded-lg transition-colors cursor-pointer"
+              >
+                Clear All
+              </button>
+            </div>
           )}
         </div>
 
@@ -251,10 +305,10 @@ export default function FavoritesClient() {
                           <>
                             <div className="fixed inset-0 z-10" onClick={() => setActiveRemixId(null)} />
                             <div className="absolute bottom-full left-0 mb-2 w-32 z-20 glass-panel bg-[#0f0c1e] rounded-lg border border-card-border p-1 shadow-2xl flex flex-col">
-                              {["similar", "longer", "shorter", "darker", "royal", "ancient"].map((action) => (
+                              {(["similar", "longer", "shorter", "darker", "royal", "ancient"] as const).map((action) => (
                                 <button
                                   key={action}
-                                  onClick={() => handleRemix(idx, nameObj, action as any)}
+                                  onClick={() => handleRemix(idx, nameObj, action)}
                                   className="w-full text-left px-2.5 py-1.5 text-xs text-slate-300 rounded hover:bg-violet-900/30 hover:text-white transition-colors cursor-pointer capitalize"
                                 >
                                   {action}

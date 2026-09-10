@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { GeneratedName, RemixAction, remixName } from "../lib/generatorEngine";
 import { trackEvent } from "../lib/analytics";
+import { useFavorites } from "../lib/favorites";
 
 interface ResultsListProps {
   names: GeneratedName[];
@@ -10,32 +11,10 @@ interface ResultsListProps {
 }
 
 export default function ResultsList({ names, onUpdateName }: ResultsListProps) {
-  const [favorites, setFavorites] = useState<GeneratedName[]>([]);
+  const [favorites, saveFavorites] = useFavorites();
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [activeRemixId, setActiveRemixId] = useState<string | null>(null);
-
-  // Load favorites on mount
-  useEffect(() => {
-    try {
-      const stored = localStorage.getItem("gfn_favorites");
-      if (stored) {
-        setFavorites(JSON.parse(stored));
-      }
-    } catch (e) {
-      console.error("Failed to load favorites:", e);
-    }
-  }, []);
-
-  const saveFavorites = (list: GeneratedName[]) => {
-    try {
-      localStorage.setItem("gfn_favorites", JSON.stringify(list));
-      setFavorites(list);
-      // Notify navbar to update count
-      window.dispatchEvent(new Event("favorites-updated"));
-    } catch (e) {
-      console.error("Failed to save favorites:", e);
-    }
-  };
+  const [copyAllFeedback, setCopyAllFeedback] = useState(false);
 
   const isFavorited = (name: string) => {
     return favorites.some(f => f.name === name);
@@ -63,6 +42,48 @@ export default function ResultsList({ names, onUpdateName }: ResultsListProps) {
     }, 2000);
   };
 
+  const handleCopyAll = () => {
+    if (names.length === 0) return;
+    const text = names.map(n => {
+      let line = n.name;
+      if (n.pronunciation) line += ` (${n.pronunciation})`;
+      if (n.meaning) line += ` - ${n.meaning}`;
+      return line;
+    }).join("\n");
+    navigator.clipboard.writeText(text);
+    setCopyAllFeedback(true);
+    trackEvent("copy_all", { count: names.length, source: "results_list" });
+    setTimeout(() => setCopyAllFeedback(false), 2000);
+  };
+
+  const handleExportTxt = () => {
+    if (names.length === 0) return;
+    const text = [
+      "# Fantasy Names Generated on GenerateFantasyNames.com",
+      `# Date: ${new Date().toISOString()}`,
+      `# Count: ${names.length}`,
+      "",
+      ...names.map((n, i) => {
+        let line = `${i + 1}. ${n.name}`;
+        if (n.pronunciation) line += ` [${n.pronunciation}]`;
+        if (n.meaning) line += ` — ${n.meaning}`;
+        return line;
+      }),
+    ].join("\n");
+
+    const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `fantasy-names-${Date.now()}.txt`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+
+    trackEvent("export_txt", { count: names.length, source: "results_list" });
+  };
+
   const handleRemix = (index: number, nameObj: GeneratedName, action: RemixAction) => {
     const remixed = remixName(nameObj, action);
     onUpdateName(index, remixed);
@@ -85,7 +106,7 @@ export default function ResultsList({ names, onUpdateName }: ResultsListProps) {
   };
 
   return (
-    <div className="w-full space-y-5">
+    <div className="w-full space-y-4">
       {names.length === 0 ? (
         <div className="text-center py-12 glass-panel rounded-2xl border-dashed border-card-border/50 text-slate-400">
           <svg className="w-12 h-12 mx-auto text-violet-500/40 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -95,7 +116,47 @@ export default function ResultsList({ names, onUpdateName }: ResultsListProps) {
           <p className="text-xs text-slate-500 mt-1">Configure options above and click Generate.</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-5">
+        <>
+          <div className="flex items-center justify-between gap-2 pb-1">
+            <span className="text-xs text-slate-400 font-medium">
+              {names.length} {names.length === 1 ? "name" : "names"} generated
+            </span>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={handleCopyAll}
+                className="px-3 py-1.5 text-xs font-semibold rounded-lg border border-violet-400/25 bg-violet-950/20 text-violet-200 hover:bg-violet-900/30 hover:text-white transition-all cursor-pointer flex items-center gap-1.5"
+                title="Copy current batch line-by-line"
+              >
+                {copyAllFeedback ? (
+                  <>
+                    <svg className="w-3.5 h-3.5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>Copied All!</span>
+                  </>
+                ) : (
+                  <>
+                    <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <rect x="9" y="9" width="11" height="11" rx="2" strokeWidth={2} />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 9V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7a2 2 0 002 2h3" />
+                    </svg>
+                    <span>Copy All</span>
+                  </>
+                )}
+              </button>
+              <button
+                onClick={handleExportTxt}
+                className="px-3 py-1.5 text-xs font-semibold rounded-lg border border-white/10 bg-white/5 text-slate-300 hover:bg-white/10 hover:text-white transition-all cursor-pointer flex items-center gap-1.5"
+                title="Download current batch as TXT file"
+              >
+                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>
+                <span>Export as TXT</span>
+              </button>
+            </div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-5">
           {names.map((nameObj, idx) => {
             const isFav = isFavorited(nameObj.name);
             const isCopied = copiedId === nameObj.id;
@@ -223,6 +284,7 @@ export default function ResultsList({ names, onUpdateName }: ResultsListProps) {
             );
           })}
         </div>
+        </>
       )}
     </div>
   );

@@ -353,3 +353,88 @@ export const usernameVocabulary = {
     "[prefix][noun]Plays"
   ]
 };
+
+// -------------------------------------------------------------
+// Syllable pools & Vocabulary for pSEO Expansion
+// -------------------------------------------------------------
+
+export const tieflingSyllabary = {
+  male: {
+    prefixes: ["Akm", "Amn", "Bar", "Dam", "Ek", "Iad", "Kair", "Leuc", "Mel", "Mord", "Morth", "Pel", "Skam", "Ther", "Malf", "Bel", "Cass", "Azaz", "Zar", "Val"],
+    vowels: ["a", "e", "i", "o", "u", "ai", "on"],
+    suffixes: ["enos", "on", "akas", "akos", "emon", "os", "is", "ech", "ai", "aios", "us", "ador", "iel", "ith", "azar", "ax"],
+  },
+  female: {
+    prefixes: ["Akt", "An", "Brys", "Cri", "Dam", "E", "Kall", "Ler", "Mak", "Nem", "Ori", "Phel", "Riet", "Zeph", "Val", "Lil", "Sar", "Kal"],
+    vowels: ["a", "ai", "e", "i", "ia", "o"],
+    suffixes: ["a", "akis", "eis", "ella", "aia", "ista", "issa", "aria", "eia", "anna", "aia", "ra", "ith", "ina", "ys"],
+  },
+  virtueNames: [
+    "Art", "Carrion", "Chant", "Creed", "Despair", "Excellence", "Fear", "Glory",
+    "Hope", "Ideal", "Music", "Nowhere", "Open", "Poetry", "Quest", "Random",
+    "Reverence", "Sorrow", "Temerity", "Torment", "Weary", "Courage", "Zeal"
+  ],
+  surnames: {
+    prefixes: ["Horn", "Hell", "Nether", "Brim", "Shadow", "Cinder", "Blood", "Ashen", "Dread", "Gloom", "Flame", "Void"],
+    suffixes: ["carver", "fire", "strider", "stone", "horn", "blood", "thorn", "gaze", "binder", "heart", "wrath", "walker"]
+  }
+};
+
+export const cyberpunkVocabulary = {
+  prefixes: [
+    "Zero", "Neon", "Glitch", "Ghost", "Cipher", "Pixel", "Null", "Byte", "Syn", "Volt",
+    "Chrome", "Nexus", "Grid", "Apex", "Razor", "Vektor", "Shade", "Echo", "Kiro", "Wire",
+    "Rogue", "Crash", "Vortex", "Jack", "Data", "Static", "Fader", "Laser", "Flux", "Onyx"
+  ],
+  suffixes: [
+    "runner", "blade", "strike", "wire", "hacker", "ghost", "core", "lock", "link",
+    "drive", "point", "trace", "shift", "pulse", "burn", "jack", "byte", "code",
+    "surge", "matrix", "shard", "override", "protocol", "breaker"
+  ],
+  aliases: [
+    "Vance", "Kovacs", "Case", "Tetsuo", "Molly", "Armitage", "Wintermute", "Deckard",
+    "Batty", "Silverhand", "Blackhand", "Arasaka", "Takemura", "Alt", "Reed", "Songbird",
+    "Rogue", "Judy", "Panam", "Mercer", "Gibson", "Sterling", "Kusanagi", "Batou"
+  ],
+  corporations: [
+    "Arasaka", "Militech", "Kang Tao", "Zetatech", "Biotechnica", "Petrochem", "NetWatch", "Trauma Team"
+  ],
+  structures: [
+    "[prefix][suffix]",
+    "[prefix] '[alias]' [suffix]",
+    "[prefix] [alias]",
+    "[alias]_[number]",
+    "[prefix]_[alias]",
+    "Agent [alias]"
+  ]
+};
+
+export const warhammerVocabulary = {
+  prefixes: [
+    "Mal", "Varn", "Grend", "Mort", "Torg", "Sever", "Grim", "Val", "Balth", "Drak",
+    "Kor", "Cal", "Typh", "Huron", "Abad", "Cast", "Luci", "Eisen", "Garr", "Corv",
+    "Vulkan", "Dorn", "Sigis", "Leman", "Sanguin", "Titus", "Rob", "Lion", "Ferrus"
+  ],
+  suffixes: [
+    "us", "or", "ian", "ius", "an", "ax", "orath", "gath", "on", "iel",
+    "ar", "ion", "gar", "thor", "mund", "vane", "drast", "phast", "morn", "dorn"
+  ],
+  titles: [
+    "the Purifier", "the Unforgiven", "the Ironclad", "of the Black Templars", "the Inquisitor",
+    "the Dreadnought", "the Blood Angel", "the Heretic Bane", "the Warmaster", "the Executioner",
+    "the Righteous", "the Vengeful", "the Eternal Warden", "of Holy Terra", "the Castellan"
+  ],
+  chapters: [
+    "Iron Hands", "Imperial Fists", "Raven Guard", "Salamanders", "Space Wolves",
+    "Dark Angels", "Blood Angels", "Grey Knights", "Deathwatch", "Ultramarines"
+  ],
+  structures: [
+    "[prefix][suffix]",
+    "[prefix][suffix] [title]",
+    "Brother [prefix][suffix]",
+    "Inquisitor [prefix][suffix]",
+    "Lord [prefix][suffix] [title]",
+    "[prefix][suffix] of the [chapter]"
+  ]
+};
+

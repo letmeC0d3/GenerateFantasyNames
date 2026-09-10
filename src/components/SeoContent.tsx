@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getGeneratorBySlug } from "../data/registry";
+import { generateNames } from "../lib/generatorEngine";
 
 interface SeoContentProps {
   slug: string;
@@ -14,6 +15,22 @@ export default function SeoContent({ slug }: SeoContentProps) {
   const relatedGens = gen.relatedSlugs
     .map(s => getGeneratorBySlug(s))
     .filter((g): g is NonNullable<typeof g> => !!g);
+
+  // Resolve example names from curated list or generate a deterministic sample set
+  const examples = (gen.exampleNames && gen.exampleNames.length > 0)
+    ? gen.exampleNames
+    : generateNames({
+        generatorType: gen.generatorConfig.generatorType || "character",
+        race: gen.generatorConfig.race,
+        style: gen.generatorConfig.style,
+        gender: gen.generatorConfig.gender,
+        quantity: 5,
+        seed: `SEO-EX-${gen.slug || "home"}`
+      }).map(n => ({
+        name: n.name,
+        pronunciation: n.pronunciation || "Standard",
+        meaning: n.meaning || "Legendary moniker"
+      }));
 
   return (
     <div className="site-shell py-16 border-t border-white/10 mt-14 space-y-14 text-slate-300">
@@ -39,6 +56,46 @@ export default function SeoContent({ slug }: SeoContentProps) {
           </p>
         </article>
       </div>
+
+      {/* Structured Example Names Table */}
+      {examples.length > 0 && (
+        <section className="space-y-4 pt-2">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/10 pb-3">
+            <h2 className="text-xl font-bold text-white tracking-tight flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-emerald-400" />
+              Example {gen.h1.replace(" Generator", "")} Names & Meanings
+            </h2>
+            <span className="text-xs text-slate-400 font-mono">Phonetic & Semantic Breakdown</span>
+          </div>
+
+          <div className="overflow-x-auto rounded-xl border border-white/10 glass-panel">
+            <table className="w-full text-left text-sm">
+              <thead className="bg-white/5 border-b border-white/10 text-xs uppercase font-bold tracking-wider text-slate-300">
+                <tr>
+                  <th scope="col" className="px-5 py-3.5">Name</th>
+                  <th scope="col" className="px-5 py-3.5">Phonetic Pronunciation</th>
+                  <th scope="col" className="px-5 py-3.5">Meaning & Linguistic Lore</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-white/5">
+                {examples.map((ex, i) => (
+                  <tr key={i} className="hover:bg-white/5 transition-colors">
+                    <td className="px-5 py-3.5 font-bold text-white whitespace-nowrap">
+                      {ex.name}
+                    </td>
+                    <td className="px-5 py-3.5 italic text-slate-400 font-mono text-xs">
+                      &ldquo;{ex.pronunciation}&rdquo;
+                    </td>
+                    <td className="px-5 py-3.5 text-amber-300/90 text-xs sm:text-sm">
+                      {ex.meaning}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      )}
 
       {/* FAQs Section */}
       {gen.faqs && gen.faqs.length > 0 && (

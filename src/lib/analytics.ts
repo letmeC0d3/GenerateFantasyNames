@@ -1,8 +1,15 @@
 "use client";
 
+declare global {
+  interface Window {
+    gtag?: (command: string, eventName: string, eventParams?: Record<string, unknown>) => void;
+    dataLayer?: Array<Record<string, unknown>>;
+  }
+}
+
 export interface AnalyticsEvent {
   event: string;
-  properties?: Record<string, any>;
+  properties?: Record<string, unknown>;
   timestamp: number;
 }
 
@@ -11,7 +18,7 @@ const IS_DEV = process.env.NODE_ENV === "development";
 /**
  * Tracks an analytics event.
  */
-export function trackEvent(eventName: string, properties?: Record<string, any>) {
+export function trackEvent(eventName: string, properties?: Record<string, unknown>) {
   const timestamp = Date.now();
   const eventData: AnalyticsEvent = {
     event: eventName,
@@ -38,22 +45,22 @@ export function trackEvent(eventName: string, properties?: Record<string, any>) 
       existingLogs.shift();
     }
     sessionStorage.setItem(logsKey, JSON.stringify(existingLogs));
-  } catch (e) {
+  } catch {
     // Fail silently in case storage is restricted
   }
 
   // 3. Push to standard GA4/Gtag dataLayer if script is injected
   try {
-    if (typeof window !== "undefined" && (window as any).gtag) {
-      (window as any).gtag("event", eventName, properties);
+    if (typeof window !== "undefined" && window.gtag) {
+      window.gtag("event", eventName, properties);
     }
-    if (typeof window !== "undefined" && (window as any).dataLayer) {
-      (window as any).dataLayer.push({
+    if (typeof window !== "undefined" && window.dataLayer) {
+      window.dataLayer.push({
         event: eventName,
         ...properties,
       });
     }
-  } catch (err) {
+  } catch {
     // Fail silently
   }
 }
@@ -66,7 +73,7 @@ export function getLoggedEvents(): AnalyticsEvent[] {
   try {
     const stored = sessionStorage.getItem("gfn_analytics_logs");
     return stored ? JSON.parse(stored) : [];
-  } catch (e) {
+  } catch {
     return [];
   }
 }

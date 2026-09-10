@@ -20,7 +20,10 @@ import {
   shipVocabulary,
   weaponVocabulary,
   creatureVocabulary,
-  usernameVocabulary
+  usernameVocabulary,
+  tieflingSyllabary,
+  cyberpunkVocabulary,
+  warhammerVocabulary
 } from "../data/syllabary";
 
 export interface GeneratorConfig {
@@ -202,6 +205,17 @@ function derivePronunciation(name: string, race: string): string {
       pron = pron.replace(/shag/g, "shag");
       pron = pron.replace(/thrg/g, "thurg");
       pron = pron.replace(/ugr/g, "oog-ur");
+    } else if (race === "tiefling") {
+      pron = pron.replace(/enos/g, "eh-nos");
+      pron = pron.replace(/akos/g, "ah-kos");
+      pron = pron.replace(/leuc/g, "loo-k");
+      pron = pron.replace(/ther/g, "theh-rye");
+      pron = pron.replace(/mord/g, "mor-dye");
+    } else if (race === "warhammer") {
+      pron = pron.replace(/ius/g, "ee-us");
+      pron = pron.replace(/orath/g, "or-ath");
+      pron = pron.replace(/mund/g, "moond");
+      pron = pron.replace(/vane/g, "vayn");
     }
 
     // Capitalize syllables roughly
@@ -260,7 +274,7 @@ function generateElf(prng: DeterministicPRNG, gender: "male" | "female" | "any",
   };
 }
 
-function generateDarkElf(prng: DeterministicPRNG, gender: "male" | "female" | "any", style: string): { name: string; meaning: string; pron: string } {
+function generateDarkElf(prng: DeterministicPRNG, gender: "male" | "female" | "any"): { name: string; meaning: string; pron: string } {
   const isFemale = gender === "female" || (gender === "any" && prng.next() > 0.5);
   const syl = isFemale ? darkElfSyllabary.female : darkElfSyllabary.male;
 
@@ -282,7 +296,7 @@ function generateDarkElf(prng: DeterministicPRNG, gender: "male" | "female" | "a
   };
 }
 
-function generateDwarf(prng: DeterministicPRNG, gender: "male" | "female" | "any", style: string): { name: string; meaning: string; pron: string } {
+function generateDwarf(prng: DeterministicPRNG, gender: "male" | "female" | "any"): { name: string; meaning: string; pron: string } {
   const isFemale = gender === "female" || (gender === "any" && prng.next() > 0.5);
   const syl = isFemale ? dwarfSyllabary.female : dwarfSyllabary.male;
 
@@ -301,7 +315,7 @@ function generateDwarf(prng: DeterministicPRNG, gender: "male" | "female" | "any
   };
 }
 
-function generateOrc(prng: DeterministicPRNG, gender: "male" | "female" | "any", style: string): { name: string; meaning: string; pron: string } {
+function generateOrc(prng: DeterministicPRNG, gender: "male" | "female" | "any"): { name: string; meaning: string; pron: string } {
   const isFemale = gender === "female" || (gender === "any" && prng.next() > 0.5);
   const syl = isFemale ? orcSyllabary.female : orcSyllabary.male;
 
@@ -320,7 +334,7 @@ function generateOrc(prng: DeterministicPRNG, gender: "male" | "female" | "any",
   };
 }
 
-function generateDragon(prng: DeterministicPRNG, gender: "male" | "female" | "any", style: string): { name: string; meaning: string; pron: string } {
+function generateDragon(prng: DeterministicPRNG): { name: string; meaning: string; pron: string } {
   const prefix = prng.pick(dragonSyllabary.prefixes);
   const vowel = prng.pick(dragonSyllabary.vowels);
   const suffix = prng.pick(dragonSyllabary.suffixes);
@@ -344,7 +358,7 @@ function generateDragon(prng: DeterministicPRNG, gender: "male" | "female" | "an
   };
 }
 
-function generateHuman(prng: DeterministicPRNG, gender: "male" | "female" | "any", style: string): { name: string; meaning: string; pron: string } {
+function generateHuman(prng: DeterministicPRNG, gender: "male" | "female" | "any"): { name: string; meaning: string; pron: string } {
   const isFemale = gender === "female" || (gender === "any" && prng.next() > 0.5);
   const syl = isFemale ? humanSyllabary.female : humanSyllabary.male;
 
@@ -359,7 +373,7 @@ function generateHuman(prng: DeterministicPRNG, gender: "male" | "female" | "any
   };
 }
 
-function generateWizard(prng: DeterministicPRNG, gender: "male" | "female" | "any", style: string): { name: string; meaning: string; pron: string } {
+function generateWizard(prng: DeterministicPRNG): { name: string; meaning: string; pron: string } {
   const prefix = prng.pick(wizardSyllabary.prefixes);
   const vowel = prng.pick(wizardSyllabary.vowels);
   const suffix = prng.pick(wizardSyllabary.suffixes);
@@ -375,7 +389,7 @@ function generateWizard(prng: DeterministicPRNG, gender: "male" | "female" | "an
   };
 }
 
-function generateVampire(prng: DeterministicPRNG, gender: "male" | "female" | "any", style: string): { name: string; meaning: string; pron: string } {
+function generateVampire(prng: DeterministicPRNG): { name: string; meaning: string; pron: string } {
   const prefix = prng.pick(vampireSyllabary.prefixes);
   const vowel = prng.pick(vampireSyllabary.vowels);
   const suffix = prng.pick(vampireSyllabary.suffixes);
@@ -386,44 +400,44 @@ function generateVampire(prng: DeterministicPRNG, gender: "male" | "female" | "a
   const name = `${first} ${surname}`;
   return {
     name,
-    meaning: "Immortal Sanguine Aristocrat",
+    meaning: "Creature of the Immortal Night",
     pron: first + " " + surname
   };
 }
 
-function generateAngel(prng: DeterministicPRNG, gender: "male" | "female" | "any", style: string): { name: string; meaning: string; pron: string } {
+function generateAngel(prng: DeterministicPRNG): { name: string; meaning: string; pron: string } {
   const prefix = prng.pick(angelSyllabary.prefixes);
   const vowel = prng.pick(angelSyllabary.vowels);
   const suffix = prng.pick(angelSyllabary.suffixes);
 
   const first = cleanSpelling(prefix + vowel + suffix);
-  const title = prng.next() > 0.5 ? " " + prng.pick(angelSyllabary.titles) : "";
+  const title = prng.pick(angelSyllabary.titles);
 
-  const name = `${first}${title}`;
+  const name = `${first} ${title}`;
   return {
     name,
-    meaning: "Heavenly Messenger / Divine Shield",
-    pron: first + (title ? " " + title.trim() : "")
+    meaning: "Emissary of the Celestial Heavens",
+    pron: first + " " + title
   };
 }
 
-function generateDemon(prng: DeterministicPRNG, gender: "male" | "female" | "any", style: string): { name: string; meaning: string; pron: string } {
+function generateDemon(prng: DeterministicPRNG): { name: string; meaning: string; pron: string } {
   const prefix = prng.pick(demonSyllabary.prefixes);
   const vowel = prng.pick(demonSyllabary.vowels);
   const suffix = prng.pick(demonSyllabary.suffixes);
 
   const first = cleanSpelling(prefix + vowel + suffix);
-  const title = prng.next() > 0.5 ? " " + prng.pick(demonSyllabary.titles) : "";
+  const title = prng.pick(demonSyllabary.titles);
 
-  const name = `${first}${title}`;
+  const name = `${first} ${title}`;
   return {
     name,
-    meaning: "Abyssal Lord / Scourge of Souls",
-    pron: first + (title ? " " + title.trim() : "")
+    meaning: "Fiend of the Nether Abyss",
+    pron: first + " " + title
   };
 }
 
-function generateFairy(prng: DeterministicPRNG, gender: "male" | "female" | "any", style: string): { name: string; meaning: string; pron: string } {
+function generateFairy(prng: DeterministicPRNG): { name: string; meaning: string; pron: string } {
   const prefix = prng.pick(fairySyllabary.prefixes);
   const vowel = prng.pick(fairySyllabary.vowels);
   const suffix = prng.pick(fairySyllabary.suffixes);
@@ -541,7 +555,7 @@ function generateWeapon(prng: DeterministicPRNG): string {
   const prefix = prng.pick(weaponVocabulary.prefixes);
   const suffix = prng.pick(weaponVocabulary.suffixes);
   const noun = prng.pick(weaponVocabulary.nouns);
-  const concept = prng.pick((weaponVocabulary as any).concepts || ["Glory", "Honor", "Doom"]);
+  const concept = prng.pick((weaponVocabulary as unknown as { concepts: string[] }).concepts || ["Glory", "Honor", "Doom"]);
 
   if (roll < 0.4) {
     return cleanSpelling(`${prefix}${suffix}`);
@@ -581,6 +595,281 @@ function generateUsername(prng: DeterministicPRNG): string {
 }
 
 // -------------------------------------------------------------
+// PSEO EXPANSION GENERATORS (Tiefling, Cyberpunk, Warhammer)
+// -------------------------------------------------------------
+
+const tieflingMeanings: Record<string, string> = {
+  akm: "Sharp Mind", amn: "Loyal", bar: "Lightning", dam: "Tamer", ek: "Cunning",
+  iad: "Seeker", kair: "Opportune", leuc: "Light-Bearer", mel: "Ruler", mord: "Rebel",
+  morth: "Death-Touched", pel: "Wayfarer", skam: "Dark-Cloaked", ther: "Hunter",
+  malf: "Fiend-Blood", bel: "Tormentor", cass: "Shield", azaz: "Defiant", zar: "Flame",
+  val: "Power",
+  akt: "First-Born", an: "Grace", brys: "Beloved", cri: "Vow", e: "Spirit",
+  kall: "Beautiful", ler: "Courage", mak: "Blessed", nem: "Avenger", ori: "Dawn",
+  phel: "Starlight", riet: "River", zeph: "Breeze", lil: "Night",
+  horn: "Horn", hell: "Infernal", nether: "Abyss", brim: "Brimstone", shadow: "Shadow",
+  cinder: "Cinder", blood: "Blood", ashen: "Ash", dread: "Dread", gloom: "Gloom",
+  flame: "Flame", void: "Void",
+  carver: "Carver", fire: "Fire", strider: "Strider", stone: "Stone", thorn: "Thorn",
+  gaze: "Gaze", binder: "Binder", heart: "Heart", wrath: "Wrath", walker: "Walker"
+};
+
+function generateTiefling(prng: DeterministicPRNG, gender: "male" | "female" | "any", style: string): { name: string; meaning: string; pron: string } {
+  // 25% chance of Virtue name (classic D&D 5e lore)
+  if (style !== "royal" && prng.next() < 0.25) {
+    const virtue = prng.pick(tieflingSyllabary.virtueNames);
+    let surname = "";
+    if (prng.next() > 0.4) {
+      surname = prng.pick(tieflingSyllabary.surnames.prefixes) + prng.pick(tieflingSyllabary.surnames.suffixes);
+    }
+    const fullName = cleanSpelling(surname ? `${virtue} ${surname}` : virtue);
+    return {
+      name: fullName,
+      meaning: "D&D 5e Virtue Name (Philosophical Ideal)",
+      pron: virtue + (surname ? " " + surname : "")
+    };
+  }
+
+  const isFemale = gender === "female" || (gender === "any" && prng.next() > 0.5);
+  const syl = isFemale ? tieflingSyllabary.female : tieflingSyllabary.male;
+
+  const prefix = prng.pick(syl.prefixes);
+  const vowel = syl.vowels && prng.next() > 0.4 ? prng.pick(syl.vowels) : "";
+  const suffix = prng.pick(syl.suffixes);
+  const first = cleanSpelling(prefix + vowel + suffix);
+
+  let surname = "";
+  if (prng.next() > 0.3) {
+    surname = prng.pick(tieflingSyllabary.surnames.prefixes) + prng.pick(tieflingSyllabary.surnames.suffixes);
+  }
+
+  const name = cleanSpelling(surname ? `${first} ${surname}` : first);
+  return {
+    name,
+    meaning: deriveMeaning(name, tieflingMeanings) || "Infernal Bloodline",
+    pron: derivePronunciation(first, "tiefling") + (surname ? " " + surname : "")
+  };
+}
+
+function generateCyberpunk(prng: DeterministicPRNG): { name: string; meaning: string; pron: string } {
+  const structure = prng.pick(cyberpunkVocabulary.structures);
+  const prefix = prng.pick(cyberpunkVocabulary.prefixes);
+  const suffix = prng.pick(cyberpunkVocabulary.suffixes);
+  const alias = prng.pick(cyberpunkVocabulary.aliases);
+  const number = prng.nextInt(10, 99);
+
+  const name = cleanSpelling(
+    structure
+      .replace("[prefix]", prefix)
+      .replace("[suffix]", suffix)
+      .replace("[alias]", alias)
+      .replace("[number]", number.toString())
+  );
+
+  return {
+    name,
+    meaning: "Cyberpunk Street Handle / Netrunner Alias",
+    pron: name.replace(/_/g, " ").replace(/'/g, "")
+  };
+}
+
+function generateWarhammer(prng: DeterministicPRNG): { name: string; meaning: string; pron: string } {
+  const structure = prng.pick(warhammerVocabulary.structures);
+  const prefix = prng.pick(warhammerVocabulary.prefixes);
+  const suffix = prng.pick(warhammerVocabulary.suffixes);
+  const title = prng.pick(warhammerVocabulary.titles);
+  const chapter = prng.pick(warhammerVocabulary.chapters);
+
+  const name = cleanSpelling(
+    structure
+      .replace("[prefix]", prefix)
+      .replace("[suffix]", suffix)
+      .replace("[title]", title)
+      .replace("[chapter]", chapter)
+  );
+
+  return {
+    name,
+    meaning: "Grimdark Imperial Hero / Chapter Warrior",
+    pron: derivePronunciation(prefix + suffix, "warhammer") + (title ? " " + title : "")
+  };
+}
+
+// -------------------------------------------------------------
+// DECOUPLED DATA-DRIVEN GENERATOR RULE REGISTRY
+// -------------------------------------------------------------
+
+export interface GeneratorRule {
+  id: string;
+  name: string;
+  category: "character" | "entity";
+  generate: (prng: DeterministicPRNG, gender?: "male" | "female" | "any", style?: string) => {
+    name: string;
+    meaning?: string;
+    pronunciation?: string;
+  };
+}
+
+export const ruleRegistry: Record<string, GeneratorRule> = {
+  // Characters & Races
+  elf: {
+    id: "elf",
+    name: "Elf",
+    category: "character",
+    generate: (prng, gender, style) => generateElf(prng, gender || "any", style || "none")
+  },
+  "dark-elf": {
+    id: "dark-elf",
+    name: "Dark Elf",
+    category: "character",
+    generate: (prng, gender) => generateDarkElf(prng, gender || "any")
+  },
+  dwarf: {
+    id: "dwarf",
+    name: "Dwarf",
+    category: "character",
+    generate: (prng, gender) => generateDwarf(prng, gender || "any")
+  },
+  orc: {
+    id: "orc",
+    name: "Orc",
+    category: "character",
+    generate: (prng, gender) => generateOrc(prng, gender || "any")
+  },
+  tiefling: {
+    id: "tiefling",
+    name: "Tiefling",
+    category: "character",
+    generate: (prng, gender, style) => generateTiefling(prng, gender || "any", style || "none")
+  },
+  dragon: {
+    id: "dragon",
+    name: "Dragon",
+    category: "character",
+    generate: (prng) => generateDragon(prng)
+  },
+  human: {
+    id: "human",
+    name: "Human",
+    category: "character",
+    generate: (prng, gender) => generateHuman(prng, gender || "any")
+  },
+  wizard: {
+    id: "wizard",
+    name: "Wizard",
+    category: "character",
+    generate: (prng) => generateWizard(prng)
+  },
+  vampire: {
+    id: "vampire",
+    name: "Vampire",
+    category: "character",
+    generate: (prng) => generateVampire(prng)
+  },
+  angel: {
+    id: "angel",
+    name: "Angel",
+    category: "character",
+    generate: (prng) => generateAngel(prng)
+  },
+  demon: {
+    id: "demon",
+    name: "Demon",
+    category: "character",
+    generate: (prng) => generateDemon(prng)
+  },
+  fairy: {
+    id: "fairy",
+    name: "Fairy",
+    category: "character",
+    generate: (prng) => generateFairy(prng)
+  },
+
+  // Places, Organizations, Objects & Other
+  kingdom: {
+    id: "kingdom",
+    name: "Kingdom",
+    category: "entity",
+    generate: (prng) => ({ name: generateKingdom(prng), meaning: "Land / Nation Sovereign" })
+  },
+  city: {
+    id: "city",
+    name: "City",
+    category: "entity",
+    generate: (prng) => ({ name: generateCity(prng), meaning: "Settlement / Stronghold" })
+  },
+  guild: {
+    id: "guild",
+    name: "Guild",
+    category: "entity",
+    generate: (prng) => ({ name: generateGuild(prng), meaning: "Factions / Fellowship" })
+  },
+  clan: {
+    id: "clan",
+    name: "Clan",
+    category: "entity",
+    generate: (prng) => ({ name: generateClan(prng), meaning: "Kinship / Warband" })
+  },
+  tavern: {
+    id: "tavern",
+    name: "Tavern",
+    category: "entity",
+    generate: (prng) => ({ name: generateTavern(prng), meaning: "Establishment / Inn" })
+  },
+  ship: {
+    id: "ship",
+    name: "Ship",
+    category: "entity",
+    generate: (prng) => ({ name: generateShip(prng), meaning: "Vessel / Sea Raider" })
+  },
+  weapon: {
+    id: "weapon",
+    name: "Weapon",
+    category: "entity",
+    generate: (prng) => ({ name: generateWeapon(prng), meaning: "Legendary Armament" })
+  },
+  creature: {
+    id: "creature",
+    name: "Creature",
+    category: "entity",
+    generate: (prng) => {
+      const res = generateCreature(prng);
+      return { name: res.name, meaning: `Beast / ${res.title}` };
+    }
+  },
+  username: {
+    id: "username",
+    name: "Username",
+    category: "entity",
+    generate: (prng) => ({ name: generateUsername(prng), meaning: "Gaming Alias" })
+  },
+  cyberpunk: {
+    id: "cyberpunk",
+    name: "Cyberpunk",
+    category: "entity",
+    generate: (prng) => generateCyberpunk(prng)
+  },
+  warhammer: {
+    id: "warhammer",
+    name: "Warhammer",
+    category: "entity",
+    generate: (prng) => generateWarhammer(prng)
+  }
+};
+
+export function registerGeneratorRule(key: string, rule: GeneratorRule) {
+  ruleRegistry[key] = rule;
+}
+
+export function getGeneratorRule(key: string): GeneratorRule | undefined {
+  return ruleRegistry[key];
+}
+
+export function getRegisteredRuleKeys(): string[] {
+  return Object.keys(ruleRegistry);
+}
+
+// -------------------------------------------------------------
 // CORE ENTRY POINT
 // -------------------------------------------------------------
 
@@ -595,15 +884,13 @@ export function generateNames(config: GeneratorConfig): GeneratedName[] {
   } = config;
 
   const names: GeneratedName[] = [];
-  const basePrng = new DeterministicPRNG(seed);
 
   // Generate names using index-shifted seeds to guarantee determinism for each slot
   for (let i = 0; i < quantity; i++) {
-    let nameObj: { name: string; meaning?: string; pronunciation?: string } = { name: "" };
+    let nameObj: { name: string; meaning?: string; pronunciation?: string; race?: string } = { name: "" };
     
     // Shift seed per iteration to yield diverse results
     const iterationSeed = `${seed}-${i}`;
-    const prng = new DeterministicPRNG(iterationSeed);
     let attempts = 0;
     const maxAttempts = 100;
 
@@ -613,91 +900,29 @@ export function generateNames(config: GeneratorConfig): GeneratedName[] {
       attempts++;
       const currentPrng = new DeterministicPRNG(`${iterationSeed}-attempt-${attempts}`);
 
+      // Resolve target rule key without hardcoded switches
+      let targetKey = "";
       if (generatorType === "character" || generatorType === "dnd") {
-        // Resolve race
-        let targetRace = race;
-        if (race === "none" || race === "any") {
-          const races = ["elf", "dark-elf", "dwarf", "orc", "dragon", "human", "wizard", "vampire", "angel", "demon", "fairy"];
-          targetRace = currentPrng.pick(races);
+        if (race === "none" || race === "any" || !race) {
+          const characterRaces = ["elf", "dark-elf", "dwarf", "orc", "dragon", "human", "wizard", "vampire", "angel", "demon", "fairy"];
+          targetKey = currentPrng.pick(characterRaces);
+        } else {
+          targetKey = race;
         }
-
-        switch (targetRace) {
-          case "elf":
-            nameObj = generateElf(currentPrng, gender, style);
-            break;
-          case "dark-elf":
-            nameObj = generateDarkElf(currentPrng, gender, style);
-            break;
-          case "dwarf":
-            nameObj = generateDwarf(currentPrng, gender, style);
-            break;
-          case "orc":
-            nameObj = generateOrc(currentPrng, gender, style);
-            break;
-          case "dragon":
-            nameObj = generateDragon(currentPrng, gender, style);
-            break;
-          case "human":
-            nameObj = generateHuman(currentPrng, gender, style);
-            break;
-          case "wizard":
-            nameObj = generateWizard(currentPrng, gender, style);
-            break;
-          case "vampire":
-            nameObj = generateVampire(currentPrng, gender, style);
-            break;
-          case "angel":
-            nameObj = generateAngel(currentPrng, gender, style);
-            break;
-          case "demon":
-            nameObj = generateDemon(currentPrng, gender, style);
-            break;
-          case "fairy":
-            nameObj = generateFairy(currentPrng, gender, style);
-            break;
-          default:
-            nameObj = generateHuman(currentPrng, gender, style);
-        }
-        
-        // Add race attribute to resolved object
-        (nameObj as any).race = targetRace;
-
       } else {
-        // Entity names
-        switch (generatorType) {
-          case "kingdom":
-            nameObj = { name: generateKingdom(currentPrng), meaning: "Land / Nation Sovereign" };
-            break;
-          case "city":
-            nameObj = { name: generateCity(currentPrng), meaning: "Settlement / Stronghold" };
-            break;
-          case "guild":
-            nameObj = { name: generateGuild(currentPrng), meaning: "Factions / Fellowship" };
-            break;
-          case "clan":
-            nameObj = { name: generateClan(currentPrng), meaning: "Kinship / Warband" };
-            break;
-          case "tavern":
-            nameObj = { name: generateTavern(currentPrng), meaning: "Establishment / Inn" };
-            break;
-          case "ship":
-            nameObj = { name: generateShip(currentPrng), meaning: "Vessel / Sea Raider" };
-            break;
-          case "weapon":
-            nameObj = { name: generateWeapon(currentPrng), meaning: "Legendary Armament" };
-            break;
-          case "creature": {
-            const res = generateCreature(currentPrng);
-            nameObj = { name: res.name, meaning: `Beast / ${res.title}` };
-            break;
-          }
-          case "username":
-            nameObj = { name: generateUsername(currentPrng), meaning: "Gaming Alias" };
-            break;
-          default:
-            nameObj = { name: generateCity(currentPrng) };
-        }
+        targetKey = generatorType;
       }
+
+      // Execute rule via decoupled registry lookup
+      const rule = ruleRegistry[targetKey] || ruleRegistry[race] || ruleRegistry["human"];
+      const generated = rule.generate(currentPrng, gender, style);
+
+      nameObj = {
+        name: generated.name,
+        meaning: generated.meaning,
+        pronunciation: generated.pronunciation,
+        race: targetKey,
+      };
 
       // Validate name
       if (isSafeName(nameObj.name) && !names.some(n => n.name === nameObj.name)) {
@@ -719,11 +944,11 @@ export function generateNames(config: GeneratorConfig): GeneratedName[] {
     names.push({
       id: `${nameObj.name.replace(/\s+/g, "-")}-${iterationSeed}`,
       name: nameObj.name,
-      pronunciation: nameObj.pronunciation || derivePronunciation(nameObj.name, (nameObj as any).race || race),
+      pronunciation: nameObj.pronunciation || derivePronunciation(nameObj.name, nameObj.race || race),
       meaning: nameObj.meaning || "Legendary name",
       seed: iterationSeed,
       generatorType,
-      race: (nameObj as any).race || race,
+      race: nameObj.race || race,
       style,
       gender
     });
@@ -756,7 +981,7 @@ export function remixName(nameObj: GeneratedName, action: RemixAction): Generate
         generatorType: nameObj.generatorType,
         race: nameObj.race,
         style: nameObj.style,
-        gender: nameObj.gender as any,
+        gender: (nameObj.gender === "male" || nameObj.gender === "female") ? nameObj.gender : "any",
         quantity: 1,
         seed: remixSeed
       };

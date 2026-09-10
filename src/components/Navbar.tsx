@@ -44,6 +44,7 @@ export default function Navbar() {
         { label: "Dark Elf Names", href: "/dark-elf-name-generator" },
         { label: "Dwarf Names", href: "/dwarf-name-generator" },
         { label: "Orc Names", href: "/orc-name-generator" },
+        { label: "Tiefling Names", href: "/tiefling-name-generator" },
         { label: "Dragon Names", href: "/dragon-name-generator" },
         { label: "Wizard Names", href: "/wizard-name-generator" },
         { label: "Vampire Names", href: "/vampire-name-generator" },
@@ -62,8 +63,10 @@ export default function Navbar() {
       ],
     },
     {
-      name: "Items & Other",
+      name: "Sci-Fi & Items",
       links: [
+        { label: "Cyberpunk Names", href: "/cyberpunk-name-generator" },
+        { label: "Warhammer Names", href: "/warhammer-name-generator" },
         { label: "Weapon Names", href: "/weapon-name-generator" },
         { label: "Ship Names", href: "/fantasy-ship-name-generator" },
         { label: "Tavern Names", href: "/fantasy-tavern-name-generator" },

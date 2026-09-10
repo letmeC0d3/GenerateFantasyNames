@@ -1,17 +1,72 @@
 import { GeneratorConfig } from "../lib/generatorEngine";
 
+export interface ExampleNameItem {
+  name: string;
+  pronunciation: string;
+  meaning: string;
+}
+
+export interface SelectOption {
+  value: string;
+  label: string;
+}
+
+export const generatorTypeOptions: SelectOption[] = [
+  { value: "character", label: "Character" },
+  { value: "dnd", label: "D&D Race" },
+  { value: "kingdom", label: "Kingdom" },
+  { value: "city", label: "City" },
+  { value: "guild", label: "Guild" },
+  { value: "clan", label: "Clan" },
+  { value: "tavern", label: "Tavern" },
+  { value: "ship", label: "Ship" },
+  { value: "weapon", label: "Weapon" },
+  { value: "creature", label: "Creature" },
+  { value: "username", label: "Username" },
+  { value: "cyberpunk", label: "Cyberpunk & Sci-Fi" },
+  { value: "warhammer", label: "Warhammer & Grimdark" },
+];
+
+export const raceOptions: SelectOption[] = [
+  { value: "any", label: "Any Race (Random)" },
+  { value: "elf", label: "Elf" },
+  { value: "dark-elf", label: "Dark Elf (Drow)" },
+  { value: "dwarf", label: "Dwarf" },
+  { value: "orc", label: "Orc" },
+  { value: "tiefling", label: "Tiefling (D&D 5e)" },
+  { value: "dragon", label: "Dragon" },
+  { value: "human", label: "Human" },
+  { value: "wizard", label: "Wizard" },
+  { value: "vampire", label: "Vampire" },
+  { value: "angel", label: "Angel" },
+  { value: "demon", label: "Demon" },
+  { value: "fairy", label: "Fairy" },
+];
+
+export const styleOptions: SelectOption[] = [
+  { value: "none", label: "Standard / Genre Classic" },
+  { value: "high-fantasy", label: "High Fantasy" },
+  { value: "dark-fantasy", label: "Dark Fantasy" },
+  { value: "ancient", label: "Ancient" },
+  { value: "royal", label: "Royal" },
+  { value: "warrior", label: "Warrior" },
+  { value: "cyberpunk-hacker", label: "Cyberpunk / Hacker" },
+  { value: "grimdark", label: "Grimdark" },
+];
+
 export interface GeneratorPageConfig {
   slug: string;
   title: string;
   metaDescription: string;
   h1: string;
   description: string;
-  category: "Characters & Races" | "Places" | "Organizations" | "Objects" | "Other";
+  category: "Characters & Races" | "Places" | "Organizations" | "Objects" | "Sci-Fi & Grimdark" | "Other";
   generatorConfig: Partial<GeneratorConfig>;
   about: string;
   characteristics: string;
   faqs: Array<{ q: string; a: string }>;
   relatedSlugs: string[];
+  exampleNames?: ExampleNameItem[];
 }
 
 export const homepageConfig: GeneratorPageConfig = {
@@ -418,6 +473,89 @@ export const generatorPages: GeneratorPageConfig[] = [
       { q: "How do I choose the best character name?", a: "Generate a batch, review their translations, and select the one that fits your character's backstory." }
     ],
     relatedSlugs: ["elf-name-generator", "dwarf-name-generator", "orc-name-generator"]
+  },
+  {
+    slug: "tiefling-name-generator",
+    title: "Tiefling Name Generator — D&D 5e Virtue & Infernal Names",
+    metaDescription: "Generate authentic D&D 5e Tiefling names including infernal heritage names and philosophical virtue names. Complete with pronunciations and meanings.",
+    h1: "Tiefling Name Generator",
+    description: "Generate evocative infernal and virtue names for your D&D 5e tiefling warlock, rogue, or paladin.",
+    category: "Characters & Races",
+    generatorConfig: {
+      generatorType: "character",
+      race: "tiefling",
+      style: "dark-fantasy",
+      gender: "any",
+      quantity: 10
+    },
+    about: "Tieflings in D&D 5th Edition possess human heritage mingled with infernal bloodlines originating from the Nine Hells. Their naming culture falls into three traditions: traditional infernal names passed through generations, virtue names chosen by tieflings seeking a destiny or personal philosophy (e.g., Art, Despair, Reverence), and adopted names reflecting the mortal cultures they dwell within.",
+    characteristics: "Infernal names feature sharp sibilants, glottal stops, and exotic vowel pairings like Akmenos, Damakos, Kallista, and Zephyra. Virtue names are single abstract nouns representing a virtue, vice, or mood that defines the character's quest.",
+    faqs: [
+      { q: "What are Tiefling virtue names?", a: "Virtue names are self-chosen epithets (such as Hope, Despair, Torment, or Music) adopted by young tieflings to define an ideal, worldview, or defiance against their devilish heritage." },
+      { q: "Are these names compliant with official D&D 5e lore?", a: "Yes. They draw directly from the Player's Handbook infernal syllable roots and historical virtue naming conventions." }
+    ],
+    relatedSlugs: ["demon-name-generator", "dark-elf-name-generator", "wizard-name-generator", "fantasy-character-name-generator"],
+    exampleNames: [
+      { name: "Barakas Hellfire", pronunciation: "BAH-rah-kas Hell-fire", meaning: "Lightning Gift — Infernal Flame" },
+      { name: "Kallista Ashengaze", pronunciation: "Kahl-LEES-tah Ash-en-gaze", meaning: "Most Beautiful — Ash Watcher" },
+      { name: "Reverence Netherstrider", pronunciation: "REV-er-ens Neth-er-stry-der", meaning: "D&D 5e Virtue Name — Abyss Traveler" },
+      { name: "Akmenos Brimstone", pronunciation: "Ahk-MEN-os Brim-stone", meaning: "Sharp Mind — Sulfur Flame" },
+      { name: "Torment Horncarver", pronunciation: "TOR-ment Horn-car-ver", meaning: "D&D 5e Virtue Name — Horn Shaper" }
+    ]
+  },
+  {
+    slug: "cyberpunk-name-generator",
+    title: "Cyberpunk Name Generator — Netrunner & Street Samurai Handles",
+    metaDescription: "Generate futuristic cyberpunk handles, street tags, netrunner aliases, and corporate operative names for Cyberpunk 2077, RED, Shadowrun, and sci-fi worlds.",
+    h1: "Cyberpunk Name Generator",
+    description: "Generate gritty street handles, netrunner aliases, and corporate operative tags.",
+    category: "Sci-Fi & Grimdark",
+    generatorConfig: {
+      generatorType: "cyberpunk",
+      style: "cyberpunk-hacker",
+      quantity: 10
+    },
+    about: "Cyberpunk naming conventions mirror a high-tech, low-life future dominated by megacorporations, black-market cyberware, and deep cyberspace. In Night City, the Sprawl, and the Net, real identities are buried beneath lethal street handles, callsigns, and cryptographic aliases.",
+    characteristics: "Combines technological hardware prefixes (Zero, Neon, Glitch, Null, Chrome) with lethal action verbs and cyberspace roles (runner, blade, wire, core, pulse), alongside underground street handles and numbers.",
+    faqs: [
+      { q: "What works best for a Netrunner alias?", a: "Netrunners favor terms derived from low-level computing, memory addresses, malware, and glitches (e.g., Null_Byte, Glitch_Trace, ZeroWire)." },
+      { q: "Can I use these for Cyberpunk 2077 or Shadowrun characters?", a: "Yes. The generator produces street handles, mercenary aliases, and fixers suited for any dark sci-fi or tabletop setting." }
+    ],
+    relatedSlugs: ["fantasy-username-generator", "weapon-name-generator", "warhammer-name-generator"],
+    exampleNames: [
+      { name: "Neon_Strike", pronunciation: "NEE-on Stryk", meaning: "High-tech cyberspace infiltrator" },
+      { name: "Zero 'Case' Wire", pronunciation: "ZEE-ro Kays Wyer", meaning: "Black-market netrunner decker" },
+      { name: "Chrome_Ghost", pronunciation: "Krohm Gohst", meaning: "Stealth cyber-ninja assassin" },
+      { name: "Vektor Kovacs", pronunciation: "VEK-tor KO-vatch", meaning: "High-tier mercenary solo" },
+      { name: "Agent Wintermute", pronunciation: "AY-jent WIN-ter-myoot", meaning: "Black-ops corporate AI operative" }
+    ]
+  },
+  {
+    slug: "warhammer-name-generator",
+    title: "Warhammer Name Generator — 40K & Fantasy Grimdark Names",
+    metaDescription: "Generate heroic Space Marine, Inquisitor, and Imperial Commander names for Warhammer 40K and Age of Sigmar. Grimdark, gothic, and faction-accurate.",
+    h1: "Warhammer Name Generator",
+    description: "Generate heavy Gothic and grimdark names for Space Marines, Inquisitors, and Chaos champions.",
+    category: "Sci-Fi & Grimdark",
+    generatorConfig: {
+      generatorType: "warhammer",
+      style: "grimdark",
+      quantity: 10
+    },
+    about: "In the grim darkness of the far future, names reflect zealous devotion, centuries of apocalyptic warfare, and high-Gothic imperial bureaucracy. From the Adeptus Astartes to the Holy Ordos of the Inquisition, warriors bear names honoring ancient Terran saints, bloodline chapters, and martyred oaths.",
+    characteristics: "Heavily inspired by High Gothic Latin, Teutonic martial honor, and harsh archaic terminations (-us, -or, -ian, -mund, -gath) accompanied by earned martial epithets like 'the Purifier' or 'the Heretic Bane'.",
+    faqs: [
+      { q: "Are these names suited for 40K Space Marines?", a: "Yes. They blend High Gothic Latinate stems with chapter honorifics and battle titles appropriate for loyalist and traitor legions alike." },
+      { q: "Can I use them for Age of Sigmar or Fantasy Battles?", a: "Absolutely. The archaic, high-gothic naming format fits Stormcast Eternals, Witch Hunters, and Empire generals perfectly." }
+    ],
+    relatedSlugs: ["dwarf-name-generator", "orc-name-generator", "weapon-name-generator", "cyberpunk-name-generator"],
+    exampleNames: [
+      { name: "Vulkanus the Purifier", pronunciation: "Vool-KAH-nus the Pyoo-rih-fyer", meaning: "Forge Warrior — Heretic Cleanser" },
+      { name: "Inquisitor Balthor", pronunciation: "In-KWIZ-ih-tor BAHL-thor", meaning: "Ordo Hereticus High Inquisitor" },
+      { name: "Brother Torgian of the Black Templars", pronunciation: "BROTH-er TOR-gee-an", meaning: "Zealous Crusader Battle-Brother" },
+      { name: "Severus the Dreadnought", pronunciation: "SEV-er-us the DRED-nawt", meaning: "Ancient Entomed Hero of the Imperium" },
+      { name: "Drakus the Ironclad", pronunciation: "DRAH-kus the EYE-urn-klad", meaning: "Indomitable Siege Commander" }
+    ]
   }
 ];
 

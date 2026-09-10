@@ -81,6 +81,25 @@ export default async function GeneratorPage({ params }: PageProps) {
     "browserRequirements": "Requires JavaScript",
   };
 
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://generatefantasynames.com"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": gen.h1,
+        "item": `https://generatefantasynames.com/${gen.slug}`
+      }
+    ]
+  };
+
   const faqSchema = gen.faqs && gen.faqs.length > 0 ? {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -97,6 +116,10 @@ export default async function GeneratorPage({ params }: PageProps) {
   return (
     <>
       {/* Inject Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
